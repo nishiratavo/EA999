@@ -12,7 +12,7 @@ USE ieee.numeric_std.all;
 -- Entity Declaration 
 -------------------------------------------
 ENTITY tick_generator IS
-GENERIC (width : positive := 11);
+GENERIC (width : positive := 12);
 	PORT (  
     enable  : IN    std_logic;
 		clk     : IN    std_logic;
@@ -25,7 +25,7 @@ END tick_generator;
 -------------------------------------------
 ARCHITECTURE rtl OF tick_generator IS
 	
-SIGNAL 		half_count: 	unsigned(width-1 downto 0):= to_unsigned(800,width);
+SIGNAL 		half_count: 	unsigned(width-1 downto 0):= to_unsigned(1600,width);
 SIGNAL		next_half_count:	unsigned(width-1 downto 0):= to_unsigned(0,width);
 SIGNAL 		count: 	unsigned(width-1 downto 0):= to_unsigned(0,width);
 SIGNAL		next_count:		unsigned(width-1 downto 0):= to_unsigned(0,width);
@@ -70,7 +70,7 @@ BEGIN
   		next_count <= count + 1;
   		clk_out <= '1';
 
-  	ELSIF (count < 1599) AND (half_period = '1') THEN
+  	ELSIF (count < 3199) AND (half_period = '1') THEN
   		clk_out <= '0';
   		next_count <= count + 1;
 
@@ -94,7 +94,7 @@ BEGIN
   BEGIN	
   	IF enable = '0' THEN
   		count <= to_unsigned(0,width);
-  		half_count <= to_unsigned(800,width);
+  		half_count <= to_unsigned(1600,width);
 
     ELSIF rising_edge(clk) THEN
 		half_count <= next_half_count;
