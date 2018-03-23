@@ -25,8 +25,8 @@ ENTITY uart IS
 	PORT
 	(
 		CLOCK_50 :  IN  STD_LOGIC;
-		GPIO_1 :  IN  STD_LOGIC_VECTOR(1 TO 1);
-		KEY :  IN  STD_LOGIC_VECTOR(0 TO 0);
+		GPIO_1 :  IN  STD_LOGIC;
+		KEY :  IN  STD_LOGIC;
 		HEX0 :  OUT  STD_LOGIC_VECTOR(6 DOWNTO 0);
 		HEX1 :  OUT  STD_LOGIC_VECTOR(6 DOWNTO 0)
 	);
@@ -132,9 +132,9 @@ PORT MAP(data_in => middle,
 
 
 b2v_inst7 : sync_n_edgedetector
-PORT MAP(data_in => GPIO_1(1),
+PORT MAP(data_in => GPIO_1,
 		 clock => clk1,
-		 reset_n => KEY(0),
+		 reset_n => KEY,
 		 data_sync => data1);
 
 

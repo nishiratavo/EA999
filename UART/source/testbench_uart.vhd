@@ -16,7 +16,7 @@ ENTITY testbench_uart IS
 END testbench_uart ;
 
 
--- Architecture Declaration 
+-- Architecture Declaration
 ARCHITECTURE struct OF testbench_uart IS
 
 	-- Components Declaration
