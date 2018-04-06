@@ -32,3 +32,4 @@ obj
 *.swp
 *.a
 nios_workspace
+/WM_I2C_1/synthesis
