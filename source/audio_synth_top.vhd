@@ -19,11 +19,8 @@
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use work.reg_table_pkg.ALL;
-
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
 use IEEE.NUMERIC_STD.ALL;
+use work.reg_table_pkg.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx primitives in this code.
@@ -32,7 +29,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity audio_synth_top is
   port(
-		CLOCK_50  : in  	STD_LOGIC;
+	 CLOCK_50  : in  	STD_LOGIC;
     KEY 		  : in  	STD_LOGIC_VECTOR (3 downto 0);
     SW 		    : in  	STD_LOGIC_VECTOR (9 downto 0);
     AUD_XCK   : out  	STD_LOGIC;
@@ -68,10 +65,10 @@ end component i2c_slave_bfm;
 -------------------------------------------
   SIGNAL    SW_DEBOUNCE : STD_LOGIC_VECTOR (9 downto 0);
   SIGNAL    counter     : NATURAL range 0 to 4 := 0;
-  SIGNAL    CLOCK_12M5  : STD_LOGIC := 0;
-  SIGNAL    Left_Volume : STD_LOGIC_VECTOR (6 downto 0) := "1111001";
-  SIGNAL    Right_Volume: STD_LOGIC_VECTOR (6 downto 0) := "1111001";
-  SIGNAL    new_event   : STD_LOGIC := 0;
+  SIGNAL    CLOCK_12M5  : STD_LOGIC := '0';
+  SIGNAL    Left_Volume : NATURAL range 0 to 127 := 121;
+  SIGNAL    Right_Volume: NATURAL range 0 to 127 := 121;
+  SIGNAL    new_event   : STD_LOGIC := '0';
 
 begin
 
@@ -80,61 +77,53 @@ begin
   --------------------------------------------------
 
   ------------- Processa os botoes -----------------
-  check_key_1: PROCESS(KEY)
+  check_key_1: PROCESS(KEY(1))
   BEGIN 
-  IF rising_edge(KEY(1))  THEN 
-    -- Aumenta o volume
-    IF Left_Volume OR Right_Volume < "1111111" THEN
-      Left_Volume = Left_Volume + 1;
-      Right_Volume = Right_Volume + 1;
-
-      new_event = 1;
-      -- write_data_i <= '0000000' + 
-    END IF;
-    
-    ELSE
-    -- Não faz nada
-    END IF;
+	IF rising_edge(KEY(1))  THEN 
+		-- Aumenta o volume
+		IF (Left_Volume < 127) OR (Right_Volume < 127) THEN
+			Left_Volume <= Left_Volume + 1;
+			Right_Volume <= Right_Volume + 1;
+  	
+			new_event <= '1';
+			-- write_data_i <= '0000000' + 
+		END IF;
+	ELSE
+		-- Nao faz nada
+	END IF;
   END PROCESS check_key_1;  
 
-  check_key_2: PROCESS(KEY)
+  check_key_2: PROCESS(KEY(2))
   BEGIN 
-  IF rising_edge(KEY(2))  THEN 
-    -- Diminui o volume
-    IF Left_Volume OR Right_Volume > "0000000" THEN
-      Left_Volume = Left_Volume - 1;
-      Right_Volume = Right_Volume - 1;
-
-      new_event = 1;
-      -- write_data_i <= '0000000' + 
-    ELSE
-    -- Não faz nada
-    END IF;
+	IF rising_edge(KEY(2))  THEN 
+		-- Aumenta o volume
+		IF (Left_Volume > 0) OR (Right_Volume > 0) THEN
+			Left_Volume <= Left_Volume - 1;
+			Right_Volume <= Right_Volume - 1;
+  	
+			new_event <= '1';
+			-- write_data_i <= '0000000' + 
+		END IF;
+	ELSE
+		-- Nao faz nada
+	END IF;
   END PROCESS check_key_2;  
 
-
-  check_key_3: PROCESS(KEY)
+  WM_loop_config: PROCESS(SW(0))
   BEGIN 
-  IF rising_edge(KEY(3))  THEN 
-    
-    new_event = 1;
-    ELSE
-    -- Não faz nada
-    END IF;
-  END PROCESS check_key_3;  
+	IF SW(0) = '1'  THEN 
+		-- Configura WM8731 para loop de audio
+	
+		-- Envia msg de configuracao para WM
+		
+		new_event <= '1';
+	ELSE
+		-- Nao faz nada
+	END IF;
+  END PROCESS WM_loop_config;  
 
 
-  check_key_4: PROCESS(KEY)
-  BEGIN 
-  IF rising_edge(KEY(4))  THEN 
-  
-    new_event = 1;
-    ELSE
-    -- Não faz nada
-    END IF;
-  END PROCESS check_key_4;  
 --------------------------------------------------
-
 ------ Gera o clock de 12M5Hz para o CODEC -------
 clock_divisor: PROCESS (CLOCK_50)
 BEGIN
