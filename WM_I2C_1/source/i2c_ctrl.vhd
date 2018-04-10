@@ -34,7 +34,7 @@ entity i2c_ctrl is
     write_o       : out   std_logic;
     write_data_o  : out   std_logic_vector(15 downto 0);
     write_done_i  : in    std_logic;
-	 ack_error_i	: in	  std_logic
+	ack_error_i   : in	  std_logic
 	);
 			  
 end i2c_ctrl;
