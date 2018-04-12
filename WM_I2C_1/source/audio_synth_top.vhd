@@ -20,125 +20,160 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
-use work.reg_table_pkg.ALL;
+--use work.reg_table_pkg.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx primitives in this code.
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity audio_synth_top is
+entity audio_synth is
   port(
 	 CLOCK_50  : in  	STD_LOGIC;
-    KEY 		  : in  	STD_LOGIC_VECTOR (3 downto 0);
-    SW 		    : in  	STD_LOGIC_VECTOR (9 downto 0);
-    AUD_XCK   : out  	STD_LOGIC;
+    KEY 		  : in  	STD_LOGIC_VECTOR(2 downto 0);
+    D_WRITE_O : out STD_LOGIC;
+    D_WRITE_DATA_O : out STD_LOGIC_VECTOR(15 downto 0);
+    D_WRITE_DONE : out STD_LOGIC;
+    --SW 		    : in  	STD_LOGIC_VECTOR (9 downto 0);
+    --AUD_XCK   : out  	STD_LOGIC;
     I2C_SCLK  : out   STD_LOGIC;
     I2C_SDAT  : inout	STD_LOGIC
+
 	);
 			  
-end audio_synth_top;
+end audio_synth;
 
-architecture rtl of audio_synth_top is
+ARCHITECTURE bdf_type OF audio_synth IS 
 
-component i2c_master is
+
+COMPONENT clk_div
+  port
+  (
+    clk_in  : in std_logic;
+    clk_out : out std_logic
+  );
+
+end COMPONENT;
+
+--COMPONENT sync_n_edgeDetector IS
+--  PORT
+--    ( 
+--      data_in   : IN    std_logic;
+--      clock     : IN    std_logic;
+--      reset_n   : IN    std_logic;
+--      data_sync : OUT std_logic; 
+--      rise      : OUT   std_logic;
+--      fall      : OUT   std_logic
+--     );
+
+--END COMPONENT;
+
+
+COMPONENT i2c_ctrl 
   port(
-    clk         : in    std_logic;
-    reset_n     : in    std_logic;
-    write_i     : in    std_logic;
-    write_data_i: in    std_logic_vector(15 downto 0); 
-    sda_io      : inout std_logic;
-    scl_o       : out   std_logic;  
-    write_done_o: out   std_logic;
-    ack_error_o : out   std_logic
+    clk           : in    std_logic;
+    ctrl_init     : in    std_logic; 
+    select_mode   : in    std_logic_vector(1 downto 0);
+    write_o       : out   std_logic;
+    write_data_o  : out   std_logic_vector(15 downto 0);
+    write_done_i  : in    std_logic;
+    ack_error_i   : in    std_logic
   );
-end component i2c_master;
+        
+end COMPONENT;
 
-component i2c_slave_bfm is
-  port (
-    sda_io    : inout std_logic := 'H';
-    scl_io    : inout std_logic := 'H'
+COMPONENT i2c_master
+    port(
+      clk         : in    std_logic;
+      reset_n     : in    std_logic;
+
+      write_i     : in    std_logic;
+      write_data_i: in  std_logic_vector(15 downto 0);
+      
+      sda_io      : inout std_logic;
+      scl_o       : out   std_logic;
+      
+      write_done_o: out std_logic;
+      ack_error_o : out std_logic
+        );
+end COMPONENT;
+
+
+SIGNAL  clk50 :  STD_LOGIC;
+SIGNAL  clk1 :  STD_LOGIC;
+SIGNAL  write1 :  STD_LOGIC;
+SIGNAL  write_data1 :  STD_LOGIC_VECTOR(15 downto 0);
+SIGNAL  write_done :  STD_LOGIC;
+SIGNAL  ack1 :  STD_LOGIC;
+SIGNAL  sda1 :  STD_LOGIC;
+SIGNAL  scl1 :  STD_LOGIC;
+SIGNAL  vcc1 :  STD_LOGIC;
+SIGNAL  key1 :  STD_LOGIC;
+SIGNAL  select_mode1  : STD_LOGIC_VECTOR(1 downto 0);
+
+
+BEGIN 
+
+
+b2v_inst1 : clk_div
+PORT MAP
+  (
+    clk_in => clk50,
+    clk_out => clk1
+
   );
-end component i2c_slave_bfm;
 
--- Signals & Constants Declaration
--------------------------------------------
-  SIGNAL    SW_DEBOUNCE : STD_LOGIC_VECTOR (9 downto 0);
-  SIGNAL    counter     : NATURAL range 0 to 4 := 0;
-  SIGNAL    CLOCK_12M5  : STD_LOGIC := '0';
-  SIGNAL    Left_Volume : NATURAL range 0 to 127 := 121;
-  SIGNAL    Right_Volume: NATURAL range 0 to 127 := 121;
-  SIGNAL    new_event   : STD_LOGIC := '0';
+--b2v_inst1 : sync_n_edgeDetector
+--PORT MAP
+--  (
+--    data_in   => KEY
+--    clock     : IN    std_logic;
+--    reset_n   : IN    std_logic;
+--    data_sync =>
+--  )
 
-begin
-
-  --------------------------------------------------
-  -- PROCESS FOR COMBINATIONAL LOGIC
-  --------------------------------------------------
-
-  ------------- Processa os botoes -----------------
-  check_key_1: PROCESS(KEY(1))
-  BEGIN 
-	IF rising_edge(KEY(1))  THEN 
-		-- Aumenta o volume
-		IF (Left_Volume < 127) OR (Right_Volume < 127) THEN
-			Left_Volume <= Left_Volume + 1;
-			Right_Volume <= Right_Volume + 1;
-  	
-			new_event <= '1';
-			-- write_data_i <= '0000000' + 
-		END IF;
-	ELSE
-		-- Nao faz nada
-	END IF;
-  END PROCESS check_key_1;  
-
-  check_key_2: PROCESS(KEY(2))
-  BEGIN 
-	IF rising_edge(KEY(2))  THEN 
-		-- Aumenta o volume
-		IF (Left_Volume > 0) OR (Right_Volume > 0) THEN
-			Left_Volume <= Left_Volume - 1;
-			Right_Volume <= Right_Volume - 1;
-  	
-			new_event <= '1';
-			-- write_data_i <= '0000000' + 
-		END IF;
-	ELSE
-		-- Nao faz nada
-	END IF;
-  END PROCESS check_key_2;  
-
-  WM_loop_config: PROCESS(SW(0))
-  BEGIN 
-	IF SW(0) = '1'  THEN 
-		-- Configura WM8731 para loop de audio
-	
-		-- Envia msg de configuracao para WM
-		
-		new_event <= '1';
-	ELSE
-		-- Nao faz nada
-	END IF;
-  END PROCESS WM_loop_config;  
+b2v_inst2 : i2c_ctrl
+PORT MAP(
+     clk => clk1,
+     ctrl_init => key1,
+     select_mode => select_mode1,
+     write_o => write1,
+     write_data_o => write_data1,
+     write_done_i => write_done,
+     ack_error_i => ack1
+     );
 
 
---------------------------------------------------
------- Gera o clock de 12M5Hz para o CODEC -------
-clock_divisor: PROCESS (CLOCK_50)
-BEGIN
-IF rising_edge(CLOCK_50) THEN
-  IF (counter = 4) THEN
-    CLOCK_12M5 <= NOT(CLOCK_12M5);
-    counter <= 0;
-  ELSE
-    counter <= counter + 1;
-  END IF;
-END IF;  
-END PROCESS clock_divisor;
---------------------------------------------------
+b2v_inst3 : i2c_master
+PORT MAP(
+     clk => clk1,
+     reset_n => vcc1,
+     write_i => write1,
+     write_data_i => write_data1,
+     sda_io => I2C_SDAT,
+     scl_o => I2C_SCLK,
+     write_done_o => write_done,
+     ack_error_o => ack1
+     );
 
 
 
-end rtl;
+
+--b2v_inst2 : i2c_slave_bfm
+--PORT MAP(
+--    sda_io => sda1,
+--     scl_io => scl1
+--     );
+
+
+D_WRITE_O <= write1;
+D_WRITE_DATA_O <= write_data1;
+D_WRITE_DONE <= write_done;
+clk50 <= CLOCK_50;
+vcc1 <= '1';
+select_mode1(1) <= KEY(1);
+select_mode1(0) <= KEY(0);
+key1 <= KEY(2);
+
+END bdf_type;
 

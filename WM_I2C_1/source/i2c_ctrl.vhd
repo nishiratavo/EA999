@@ -31,6 +31,7 @@ entity i2c_ctrl is
   port(
     clk           : in    std_logic;
     ctrl_init     : in    std_logic; 
+    select_mode   : in    std_logic_vector(1 downto 0);
     write_o       : out   std_logic;
     write_data_o  : out   std_logic_vector(15 downto 0);
     write_done_i  : in    std_logic;
@@ -52,6 +53,7 @@ architecture rtl of i2c_ctrl is
   SIGNAL reg_count, next_reg_count  : natural range 0 to (register_array_length-1); -- Contador e indexador para arrey de configuracao do WN
   SIGNAL write_data                 : std_logic_vector(15 downto 0);        -- Sequencia de bits a ser enviada
   SIGNAL send_data, next_send_data  : std_logic;                            -- Flag para enviar data
+  --SIGNAL mode                       : std_logic_vector(8 downto 0);
 
 
 BEGIN
@@ -60,15 +62,19 @@ BEGIN
   -- PROCESS FOR COMB-INPUT LOGIC
   --------------------------------------------------
 
-  fsm_drive : PROCESS (s_state, ctrl_init, write_done_i)
+  fsm_drive : PROCESS (s_state, ctrl_init, write_done_i, send_data, reg_count, ack_error_i, select_mode)
   BEGIN
     
     -----------------------------------------------------------------------
     -- Default Statement, mostly keep current value
     -----------------------------------------------------------------------
     s_nextstate <= s_state;
-    send_data <= '0';
-  
+    next_send_data <= '0';
+    write_data <= "0000000000000000";
+    next_reg_count <= reg_count;
+
+
+  IF (select_mode = "00") THEN
     CASE s_state IS
       WHEN s_idle =>
         next_reg_count <= 0;
@@ -92,9 +98,91 @@ BEGIN
         ELSIF ((write_done_i = '1') AND (reg_count = register_array_length-1)) OR (ack_error_i = '1') THEN
           s_nextstate <= s_idle;
         END IF;
-
-
     END CASE;
+
+  ELSIF (select_mode = "01") THEN
+
+    CASE s_state IS
+      WHEN s_idle =>
+        next_reg_count <= 0;
+        IF (ctrl_init = '1') THEN
+          s_nextstate <= s_send_data;
+        ELSE 
+          s_nextstate <= s_idle;
+        END IF;
+
+
+      WHEN s_send_data => 
+        write_data <= std_logic_vector(to_unsigned(reg_count,address_bit_length)) & C_W8731_ANALOG_MUTE_LEFT (reg_count);
+        next_send_data <= '1';
+        s_nextstate <= s_send_wait;
+
+      WHEN s_send_wait =>
+        IF (write_done_i = '1') AND (reg_count < register_array_length-1) THEN
+          next_reg_count <= reg_count + 1;
+          s_nextstate <= s_send_data;
+
+        ELSIF ((write_done_i = '1') AND (reg_count = register_array_length-1)) OR (ack_error_i = '1') THEN
+          s_nextstate <= s_idle;
+        END IF;
+    END CASE;
+
+  ELSIF (select_mode = "10") THEN
+
+    CASE s_state IS
+      WHEN s_idle =>
+        next_reg_count <= 0;
+        IF (ctrl_init = '1') THEN
+          s_nextstate <= s_send_data;
+        ELSE 
+          s_nextstate <= s_idle;
+        END IF;
+
+
+      WHEN s_send_data => 
+        write_data <= std_logic_vector(to_unsigned(reg_count,address_bit_length)) & C_W8731_ANALOG_MUTE_RIGHT (reg_count);
+        next_send_data <= '1';
+        s_nextstate <= s_send_wait;
+
+      WHEN s_send_wait =>
+        IF (write_done_i = '1') AND (reg_count < register_array_length-1) THEN
+          next_reg_count <= reg_count + 1;
+          s_nextstate <= s_send_data;
+
+        ELSIF ((write_done_i = '1') AND (reg_count = register_array_length-1)) OR (ack_error_i = '1') THEN
+          s_nextstate <= s_idle;
+        END IF;
+    END CASE;
+
+  ELSIF (select_mode = "11") THEN
+
+    CASE s_state IS
+      WHEN s_idle =>
+        next_reg_count <= 0;
+        IF (ctrl_init = '1') THEN
+          s_nextstate <= s_send_data;
+        ELSE 
+          s_nextstate <= s_idle;
+        END IF;
+
+
+      WHEN s_send_data => 
+        write_data <= std_logic_vector(to_unsigned(reg_count,address_bit_length)) & C_W8731_ANALOG_MUTE_BOTH (reg_count);
+        next_send_data <= '1';
+        s_nextstate <= s_send_wait;
+
+      WHEN s_send_wait =>
+        IF (write_done_i = '1') AND (reg_count < register_array_length-1) THEN
+          next_reg_count <= reg_count + 1;
+          s_nextstate <= s_send_data;
+
+        ELSIF ((write_done_i = '1') AND (reg_count = register_array_length-1)) OR (ack_error_i = '1') THEN
+          s_nextstate <= s_idle;
+        END IF;
+    END CASE;
+  END IF;
+
+
   END PROCESS fsm_drive;
   
   --------------------------------------------------

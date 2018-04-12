@@ -24,9 +24,12 @@ COMPONENT audio_synth_top
 	PORT
 	(
     	CLOCK_50		: IN   	std_logic;		-- DE2 clock from xtal 50MHz
-		KEY				: IN   	std_logic_vector( 3 downto 0);  -- DE2 low_active input buttons
-		SW				: IN	std_logic_vector(17 downto 0);	-- DE2 input switches
-		AUD_XCK			: OUT	std_logic;		-- master clock for Audio Codec
+		KEY				: IN   	std_logic;  -- DE2 low_active input buttons
+		D_WRITE_O : out STD_LOGIC;
+    	D_WRITE_DATA_O : out STD_LOGIC_VECTOR(15 downto 0);
+    	D_WRITE_DONE : out STD_LOGIC;
+		--SW				: IN	std_logic_vector(17 downto 0);	-- DE2 input switches
+		--AUD_XCK			: OUT	std_logic;		-- master clock for Audio Codec
 		I2C_SCLK		: OUT	std_logic;		-- clock from I2C master block
 		I2C_SDAT		: INOUT std_logic		-- data  from I2C master block
 	);
@@ -49,6 +52,9 @@ END COMPONENT;
 	SIGNAL tb_aud_xck	: std_logic;
 	SIGNAL tb_i2c_sclk	: std_logic;
 	SIGNAL tb_i2c_sdat	: std_logic;	
+	SIGNAL tb_write_o	: std_logic;
+	SIGNAL tb_write_data	: std_logic_vector(15 downto 0);
+	SIGNAL tb_write_done	: std_logic;
 	
 	-- Constants
 	CONSTANT CST_ONE 	: std_logic := '1';
@@ -56,7 +62,7 @@ END COMPONENT;
 	CONSTANT CLK_50M_HALFP 	: time := 10 ns;  		-- Half-Period of Clock 50MHz
 	
 	-- Auxiliary Signals for internal probes
-	SIGNAL tb_reg0_up	: std_logic_vector(3 downto 0); -- to check DUT-internal signal
+	SIGNAL data	: std_logic_vector(15 downto 0); -- to check DUT-internal signal
 	SIGNAL tb_reg0_lo	: std_logic_vector(3 downto 0);	
 	
 BEGIN
@@ -65,13 +71,16 @@ BEGIN
   PORT MAP 
   (
 	CLOCK_50		=>	tb_clock_50,
-   	KEY(0)			=>	tb_reset_n,
-	KEY(1)			=> tb_init_n,
-	KEY(2)			=> CST_ONE,		-- currently unused
-	KEY(3)			=> CST_ONE,
-   	SW(2 downto 0)	=> tb_sw,			-- so far only 3 LSB used
-	SW(17 downto 3)=> (OTHERS => '1'),
-	AUD_XCK			=>	tb_aud_xck,		-- IF to Audio Codec
+   	--KEY(0)			=>	tb_reset_n,
+	KEY  			=> tb_init_n,
+	D_WRITE_O => tb_write_o,
+    D_WRITE_DATA_O => tb_write_data,
+    D_WRITE_DONE => tb_write_done,
+	--KEY(2)			=> CST_ONE,		-- currently unused
+	--KEY(3)			=> CST_ONE,
+   	--SW(2 downto 0)	=> tb_sw,			-- so far only 3 LSB used
+	--SW(17 downto 3)=> (OTHERS => '1'),
+	--AUD_XCK			=>	tb_aud_xck,		-- IF to Audio Codec
    	I2C_SCLK			=>	tb_i2c_sclk,
    I2C_SDAT			=>	tb_i2c_sdat
   )	;
@@ -97,7 +106,7 @@ BEGIN
 	-- VHDL-2008 Syntax allowing to bind 
 	--           internal signals to a debug signal in the testbench
 	-------------------------------------------
-	-- tb_reg0_up <= <<signal DUT.reg0_up_hexa : std_logic_vector(3 downto 0) >>;
+	 --data <= <<signal DUT.write_data1 : std_logic_vector(15 downto 0) >>;
 	-- tb_reg0_lo <= <<signal DUT.reg0_lo_hexa : std_logic_vector(3 downto 0) >>;
 	
 	
@@ -106,20 +115,23 @@ BEGIN
 	BEGIN
 		-- STEP 0
 		report "Initialise: define constants and pulse reset on/off";
-		tb_sw 		<= "000";
-		tb_init_n 	<= '1';
-		tb_reset_n <= '0';
+		--tb_sw 		<= "000";
+		--tb_init_n 	<= '1';
+		--tb_reset_n <= '0';
 		----------------
-		wait for 12 * clk_50M_halfp; 
-		tb_reset_n <= '1';
-		wait for 1 us;  -- pause before starting 1st I2C TX
+		wait for 2 * clk_50M_halfp; 
+		tb_init_n 	<= '1';
+		wait for 2 * clk_50M_halfp; 
+		tb_init_n <= '0';
+		--tb_reset_n <= '1';
+		--wait for 1 us;  -- pause before starting 1st I2C TX
 		
 		-- STEP 1
 		report "Start I2C TX of mode 000 Analog-Loop Basic";
 		-- value of tb_sw defined above
-		tb_init_n 	<= '0';
-		wait for 8 * clk_50M_halfp;
-		tb_init_n 	<= '1';		
+		--tb_init_n 	<= '0';
+		--wait for 8 * clk_50M_halfp;
+		--tb_init_n 	<= '1';		
 		
 		wait for 200_000 * clk_50M_halfp;
 		
