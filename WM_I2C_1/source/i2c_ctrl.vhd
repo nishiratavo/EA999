@@ -22,14 +22,11 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 use work.reg_table_pkg.ALL;
 
--- Uncomment the following library declaration if instantiating
--- any Xilinx primitives in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
 
 entity i2c_ctrl is
   port(
     clk           : in    std_logic;
+	 reset			: in	  std_logic;
     ctrl_init     : in    std_logic; 
     select_mode   : in    std_logic_vector(1 downto 0);
     write_o       : out   std_logic;
@@ -91,6 +88,7 @@ BEGIN
         s_nextstate <= s_send_wait;
 
       WHEN s_send_wait =>
+		   write_data <= std_logic_vector(to_unsigned(reg_count,address_bit_length)) & C_W8731_ANALOG_BYPASS (reg_count);
         IF (write_done_i = '1') AND (reg_count < register_array_length-1) THEN
           next_reg_count <= reg_count + 1;
           s_nextstate <= s_send_data;
@@ -118,6 +116,7 @@ BEGIN
         s_nextstate <= s_send_wait;
 
       WHEN s_send_wait =>
+		  write_data <= std_logic_vector(to_unsigned(reg_count,address_bit_length)) & C_W8731_ANALOG_BYPASS (reg_count);
         IF (write_done_i = '1') AND (reg_count < register_array_length-1) THEN
           next_reg_count <= reg_count + 1;
           s_nextstate <= s_send_data;
@@ -145,6 +144,7 @@ BEGIN
         s_nextstate <= s_send_wait;
 
       WHEN s_send_wait =>
+		  write_data <= std_logic_vector(to_unsigned(reg_count,address_bit_length)) & C_W8731_ANALOG_BYPASS (reg_count);
         IF (write_done_i = '1') AND (reg_count < register_array_length-1) THEN
           next_reg_count <= reg_count + 1;
           s_nextstate <= s_send_data;
@@ -172,6 +172,7 @@ BEGIN
         s_nextstate <= s_send_wait;
 
       WHEN s_send_wait =>
+		  write_data <= std_logic_vector(to_unsigned(reg_count,address_bit_length)) & C_W8731_ANALOG_BYPASS (reg_count);
         IF (write_done_i = '1') AND (reg_count < register_array_length-1) THEN
           next_reg_count <= reg_count + 1;
           s_nextstate <= s_send_data;
@@ -188,9 +189,13 @@ BEGIN
   --------------------------------------------------
   -- PROCESS FOR REGISTERS
   --------------------------------------------------
-  PROCESS (clk)
+  PROCESS (clk, reset)
   BEGIN
-    IF rising_edge(clk) THEN
+	 IF (reset = '0') THEN
+		s_state <= s_idle;
+		reg_count <= 0;
+		send_data <= '0';
+    ELSIF rising_edge(clk) THEN
       s_state <= s_nextstate;
       reg_count <= next_reg_count;
       send_data <= next_send_data;
