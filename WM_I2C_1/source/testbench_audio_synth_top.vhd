@@ -43,6 +43,7 @@ END COMPONENT;
 	SIGNAL tb_clock_50 	: std_logic;
 	SIGNAL tb_reset_n 	: std_logic;
 	SIGNAL tb_init_n	: std_logic;
+	SIGNAL tb_select_mode : std_LOGIC_VECTOR(1 downto 0);
 
 	-- Outputs & InOut
 	SIGNAL tb_aud_xck	: std_logic;
@@ -101,7 +102,7 @@ BEGIN
 		tb_reset_n <= '0';
 		wait for 8 * clk_50M_halfp; 
 		tb_reset_n <= '1';
-		tb_select_mode <= "00";
+		tb_select_mode <= "01";
 		tb_init_n 	<= '1';
 		wait for 8 * clk_50M_halfp; 
 		--tb_init_n <= '0';

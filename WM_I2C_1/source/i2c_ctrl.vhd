@@ -116,7 +116,7 @@ BEGIN
         s_nextstate <= s_send_wait;
 
       WHEN s_send_wait =>
-		  write_data <= std_logic_vector(to_unsigned(reg_count,address_bit_length)) & C_W8731_ANALOG_BYPASS (reg_count);
+		  write_data <= std_logic_vector(to_unsigned(reg_count,address_bit_length)) & C_W8731_ANALOG_MUTE_LEFT (reg_count);
         IF (write_done_i = '1') AND (reg_count < register_array_length-1) THEN
           next_reg_count <= reg_count + 1;
           s_nextstate <= s_send_data;
@@ -144,7 +144,7 @@ BEGIN
         s_nextstate <= s_send_wait;
 
       WHEN s_send_wait =>
-		  write_data <= std_logic_vector(to_unsigned(reg_count,address_bit_length)) & C_W8731_ANALOG_BYPASS (reg_count);
+		  write_data <= std_logic_vector(to_unsigned(reg_count,address_bit_length)) & C_W8731_ANALOG_MUTE_RIGHT (reg_count);
         IF (write_done_i = '1') AND (reg_count < register_array_length-1) THEN
           next_reg_count <= reg_count + 1;
           s_nextstate <= s_send_data;
@@ -172,7 +172,7 @@ BEGIN
         s_nextstate <= s_send_wait;
 
       WHEN s_send_wait =>
-		  write_data <= std_logic_vector(to_unsigned(reg_count,address_bit_length)) & C_W8731_ANALOG_BYPASS (reg_count);
+		  write_data <= std_logic_vector(to_unsigned(reg_count,address_bit_length)) & C_W8731_ANALOG_MUTE_BOTH (reg_count);
         IF (write_done_i = '1') AND (reg_count < register_array_length-1) THEN
           next_reg_count <= reg_count + 1;
           s_nextstate <= s_send_data;
