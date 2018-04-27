@@ -13,7 +13,7 @@ USE ieee.numeric_std.all;
 -------------------------------------------
 ENTITY bclk_gen IS
 	PORT (  
-    --enable  : IN    std_logic;
+    rst_n_12M  : IN    std_logic;
 		clk_in    : IN    std_logic;
 		clk_out    : OUT   std_logic
 	);
@@ -61,8 +61,8 @@ BEGIN
   --------------------------------------------------
   flip_flops : PROCESS(clk_in)
   BEGIN	
-  	--IF enable = '0' THEN
-  	--	count <= to_unsigned(0,width);
+  	IF rst_n_12M = '0' THEN
+  		count <= to_unsigned(0,2);
   	--	half_count <= to_unsigned(1600,width);
 
     IF rising_edge(clk_in) THEN
