@@ -17,7 +17,7 @@ ENTITY DACDAT_MUX IS
 		SER_OUT_R   : IN    std_logic;
     WS          : IN    std_logic;
 		DACDAT_s_o  : OUT   std_logic
-	);
+	); 
 END DACDAT_MUX;
 
 
@@ -34,7 +34,7 @@ BEGIN
   --------------------------------------------------
   -- PROCESS FOR FULL PERIOD
   --------------------------------------------------
-  MUX: PROCESS(MUX)
+  MUX: PROCESS(SER_OUT_L,SER_OUT_R,WS)
   BEGIN
 
   	IF(WS = 1) THEN
