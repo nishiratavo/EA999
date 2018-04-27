@@ -65,7 +65,7 @@ BEGIN
   		count <= to_unsigned(0,2);
   	--	half_count <= to_unsigned(1600,width);
 
-    IF rising_edge(clk_in) THEN
+    ELSIF rising_edge(clk_in) THEN
 		--half_count <= next_half_count;
 		count <= next_count;
     END IF;
