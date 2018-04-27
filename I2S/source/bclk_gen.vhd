@@ -59,7 +59,7 @@ BEGIN
   --------------------------------------------------
   -- PROCESS FOR REGISTERS
   --------------------------------------------------
-  flip_flops : PROCESS(clk_in)
+  flip_flops : PROCESS(clk_in,rst_n_12M)
   BEGIN	
   	IF rst_n_12M = '0' THEN
   		count <= to_unsigned(0,2);

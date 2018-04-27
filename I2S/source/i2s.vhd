@@ -30,7 +30,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity I2S_Master is
+entity i2s is
   port(
   CLOCK_12M   : in    std_logic;
   RST 		  : in    std_logic;
@@ -45,9 +45,9 @@ entity I2S_Master is
   WS_o        : out   std_logic;
   STROBE      : out   STD_LOGIC
   );
-end I2S_Master;
+end i2s;
 
-architecture bdf of I2S_Master is
+architecture bdf of i2s is
 
 
 
@@ -90,7 +90,7 @@ component DACDAT_o_MUX
     WS          : IN    std_logic;
     DACDAT_s_o  : OUT   std_logic
     );
-  end component;
+end component;
 
 signal CLOCK_12M_intern	: std_logic;
 signal bclk_intern : std_logic;
