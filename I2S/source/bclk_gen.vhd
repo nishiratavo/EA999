@@ -39,7 +39,7 @@ BEGIN
   --------------------------------------------------
   full_period_logic: PROCESS(count, next_count, clk_slow)
   BEGIN
-
+ 
     next_count <= to_unsigned(0,2);
     clk_slow <= '0';
 
