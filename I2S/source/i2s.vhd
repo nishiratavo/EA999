@@ -33,7 +33,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity i2s is
   port(
   CLOCK_12M   : in    std_logic;
-  RST 		  : in    std_logic;
+  RST_N_12M	  : in    std_logic;
 
   DACDAT_pl_i : in   std_logic_vector(15 downto 0);
   DACDAT_pr_i : in  std_logic_vector(15 downto 0);
@@ -77,6 +77,7 @@ component	shiftreg_p2s
 	clk,set_n	: IN    std_logic;			-- Attention, this block has a set_n input for initialisation!!
   load_i		: IN    std_logic;
   shift 		: IN 	std_logic;
+  enable		: IN    std_logic;
   par_i			: IN    std_logic_vector(15 downto 0);
   ser_o   	: OUT   std_logic
 	);	
@@ -102,6 +103,7 @@ signal shift_R_intern : std_logic;
 signal SER_OUT_R_intern :std_logic;
 signal SER_OUT_L_intern :std_logic;
 signal DACDAT_s_o_intern : std_logic;
+signal DACDAT_pl_i_intern : std_logic_vector(15 downto 0);
 --signal ;
 
 
@@ -138,7 +140,8 @@ b2v_inst_Shift_R : shiftreg_p2s
 	port map (
     clk   => CLOCK_12M_intern,
     set_n => rst_intern,
-    shift  => shift_L_intern,
+    shift  => shift_R_intern,
+    enable => bclk_intern,
     load_i  => strobe_intern,
     par_i   => DACDAT_pr_i,
     ser_o   => SER_OUT_R_intern
@@ -149,8 +152,9 @@ b2v_inst_Shift_L : shiftreg_p2s
     clk   => CLOCK_12M_intern,
     set_n => rst_intern,
     shift  => shift_L_intern,
+    enable => bclk_intern,
     load_i  => strobe_intern,
-    par_i   => DACDAT_pl_i,
+    par_i   => DACDAT_pl_i_intern,
     ser_o   => SER_OUT_L_intern
 	);
 
@@ -159,7 +163,8 @@ b2v_inst_Shift_L : shiftreg_p2s
   -- ADCDAT_s_i
   -- ADCDAT_pl_o
   -- ADCDAT_pr_o
-  rst_intern <= RST;
+  DACDAT_pl_i_intern <= DACDAT_pl_i;
+  rst_intern <= RST_N_12M;
   CLOCK_12M_intern <= CLOCK_12M;
   DACDAT_s_o <= DACDAT_s_o_intern;
   BCLK_o     <= bclk_intern;

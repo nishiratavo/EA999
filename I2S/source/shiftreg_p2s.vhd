@@ -15,6 +15,7 @@ USE ieee.std_logic_1164.all;
 ENTITY shiftreg_p2s IS
   PORT( clk,set_n   : IN    std_logic;      -- Attention, this block has a set_n input for initialisation!!
       load_i      : IN    std_logic;
+      enable      : IN    std_logic;
       shift       : IN std_logic;
       par_i     : IN    std_logic_vector(15 downto 0);
       ser_o         : OUT   std_logic
@@ -36,7 +37,7 @@ BEGIN
   IF (load_i = '1') THEN        -- load parallel data 
     next_shiftreg <= par_i; 
   
-  ELSIF (shift = '1') THEN      -- shift; shift direction towards LSB
+  ELSIF (shift = '1') AND (enable = '1') THEN      -- shift; shift direction towards LSB
     next_shiftreg <= '1' & shiftreg(15 downto 1); 
 
   ELSE

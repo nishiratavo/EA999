@@ -27,9 +27,9 @@ COMPONENT i2s
     	RST_N_12M		: in    std_logic;
 	    DACDAT_pl_i 	: in  	std_logic_vector(15 downto 0);
 		DACDAT_pr_i		: in 	std_logic_vector(15 downto 0);
-		ADCDAT_s_i		: in 	std_logic;
-		ADCDAT_pl_o 	: out  	std_logic_vector(15 downto 0);
-		ADCDAT_pr_o		: out 	std_logic_vector(15 downto 0);
+		--ADCDAT_s_i		: in 	std_logic;
+		--ADCDAT_pl_o 	: out  	std_logic_vector(15 downto 0);
+		--ADCDAT_pr_o		: out 	std_logic_vector(15 downto 0);
 		DACDAT_s_o 		: out  	std_logic;
 		BCLK_o			: out 	std_logic;
 		WS_o			: out 	std_logic;
@@ -47,6 +47,10 @@ END COMPONENT;
 	SIGNAL tb_pl_i		: std_logic_vector(15 downto 0);
 	SIGNAL tb_pr_i		: std_logic_vector(15 downto 0);
 	SIGNAL tb_s_o   	: std_logic;
+	SIGNAL tb_s_i		: std_logic;
+	SIGNAL tb_pl_o		: std_logic_vector(15 downto 0);
+	SIGNAL tb_pr_o		: std_logic_vector(15 downto 0);
+	SIGNAL tb_bclk		: std_logic;
 	SIGNAL tb_enable 	: std_logic;
 	SIGNAL tb_ws 		: std_logic;
 	SIGNAL tb_strobe 	: std_logic;
@@ -68,9 +72,9 @@ BEGIN
 	RST_N_12M		=> tb_rst_n_12,
 	DACDAT_pl_i 	=> tb_pl_i,
 	DACDAT_pr_i		=> tb_pr_i,
-	ADCDAT_s_i		=> tb_s_i,
-	ADCDAT_pl_o 	=> tb_pl_o,
-	ADCDAT_pr_o		=> tb_pr_o,
+	--ADCDAT_s_i		=> tb_s_i,
+	--ADCDAT_pl_o 	=> tb_pl_o,
+	--ADCDAT_pr_o		=> tb_pr_o,
 	DACDAT_s_o 		=> tb_s_o,
 	BCLK_o			=> tb_bclk,
 	WS_o			=> tb_ws,
@@ -105,7 +109,7 @@ BEGIN
 		tb_pl_i <= "1100010011101001";
 		tb_pr_i <= "1100010011101000";
 		
-		wait for 50000*CLK_12M_HALFP
+		wait for 50000*CLK_12M_HALFP;
 		
 		--report "Start I2C TX of mode 000 Analog-Loop Basic";	
 		
