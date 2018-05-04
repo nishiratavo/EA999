@@ -1,5 +1,5 @@
 -------------------------------------------
--- Block code:  shiftreg_p2s.vhd
+-- Block code:  shiftreg_s2p.vhd
 -- History: 	12.Nov.2013 - 1st version (dqtm)
 --                 <date> - <changes>  (<author>)
 -- Function: shift-register working as a parallel to serial converter.
@@ -14,30 +14,33 @@ USE ieee.std_logic_1164.all;
 
 ENTITY shiftreg_s2p IS
   PORT( clk,set_n	: IN    std_logic;			-- Attention, this block has a set_n input for initialisation!!
-  		load_i			: IN    std_logic;
+  		shift			: IN    std_logic;
+      enable    : IN    std_logic;
   		ser_i			  : IN    std_logic;
-    	par_o     	: OUT   std_logic_vector(3 downto 0)
+    	par_o     	: OUT   std_logic_vector(15 downto 0)
       );
 END shiftreg_s2p;
 
 ARCHITECTURE rtl OF shiftreg_s2p IS
 -- Signals & Constants Declaration
 -------------------------------------------
-	SIGNAL 		shiftreg, next_shiftreg: 	std_logic_vector(4 downto 0);	 -- add one FF for start_bit
+	SIGNAL 		shiftreg, next_shiftreg: 	std_logic_vector(15 downto 0);
 
 BEGIN
 
   --------------------------------------------------
   -- PROCESS FOR COMBINATIONAL LOGIC
   --------------------------------------------------
-  shift_comb: PROCESS(load_i,par_i,next_shiftreg,shiftreg)
+  shift_comb: PROCESS(shift,ser_i,next_shiftreg,shiftreg,enable)
   BEGIN	
-	IF (load_i = '1') THEN			  -- load parallel data + add start_bit
-		next_shiftreg <= par_i & '0'; -- LSB='0' is the start_bit
-	
-  	ELSE							  -- shift; shift direction towards LSB
-  		next_shiftreg <= '1' & shiftreg(4 downto 1);	
-  	END IF;
+	IF (shift = '1') AND (enable = '1') THEN			  -- carrega dado serial no LSB e desloca vetor em direcao ao MSB
+
+     next_shiftreg(15 downto 0) <= shiftreg(14 downto 0) & ser_i;
+	  
+  
+  ELSE							  
+  		next_shiftreg <= shiftreg;	
+  END IF;
 	
   END PROCESS shift_comb;   
   
@@ -47,7 +50,7 @@ BEGIN
   shift_dffs : PROCESS(clk, set_n)
   BEGIN	
   	IF set_n = '0' THEN
-		shiftreg <= (others=>'1');
+		shiftreg <= (others=>'0');
     ELSIF rising_edge(clk) THEN
 		shiftreg <= next_shiftreg ;
     END IF;
@@ -56,8 +59,8 @@ BEGIN
   --------------------------------------------------
   -- CONCURRENT ASSIGNMENTS
   --------------------------------------------------
-  -- take LSB of shiftreg as serial output
-  ser_o <= shiftreg(0);
+  -- take MSB of shiftreg as serial output
+  par_o <= shiftreg;
   
 END rtl;
 

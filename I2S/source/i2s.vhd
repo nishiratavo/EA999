@@ -37,9 +37,9 @@ entity i2s is
 
   DACDAT_pl_i : in   std_logic_vector(15 downto 0);
   DACDAT_pr_i : in  std_logic_vector(15 downto 0);
-  -- ADCDAT_s_i  : in  std_logic;
-  --ADCDAT_pl_o : out   std_logic_vector(15 downto 0);
-  --ADCDAT_pr_o : out   std_logic_vector(15 downto 0);
+  ADCDAT_s_i  : in  std_logic;
+  ADCDAT_pl_o : out   std_logic_vector(15 downto 0);
+  ADCDAT_pr_o : out   std_logic_vector(15 downto 0);
   DACDAT_s_o  : out   std_logic;
   BCLK_o      : out   std_logic;
   WS_o        : out   std_logic;
@@ -83,6 +83,15 @@ component	shiftreg_p2s
 	);	
 end component;
 	
+component	shiftreg_s2p
+  port( 
+	clk,set_n	: IN    std_logic;			-- Attention, this block has a set_n input for initialisation!!
+  shift 		: IN 	std_logic;
+  enable    : IN    std_logic;
+  ser_i			: IN    std_logic;
+  par_o   	: OUT   std_logic_vector(15 downto 0)
+	);	
+end component;	
 
 component DACDAT_o_MUX
     port (
@@ -136,7 +145,7 @@ b2v_inst3 : DACDAT_o_MUX
     DACDAT_s_o  => DACDAT_s_o_intern
   );
 
-b2v_inst_Shift_R : shiftreg_p2s
+b2v_inst_Shift_R_o : shiftreg_p2s
 	port map (
     clk   => CLOCK_12M_intern,
     set_n => rst_intern,
@@ -147,7 +156,7 @@ b2v_inst_Shift_R : shiftreg_p2s
     ser_o   => SER_OUT_R_intern
 	);
 
-b2v_inst_Shift_L : shiftreg_p2s
+b2v_inst_Shift_L_o : shiftreg_p2s
 	port map (
     clk   => CLOCK_12M_intern,
     set_n => rst_intern,
@@ -158,11 +167,30 @@ b2v_inst_Shift_L : shiftreg_p2s
     ser_o   => SER_OUT_L_intern
 	);
 
+	b2v_inst_Shift_R_i : shiftreg_s2p
+	port map (
+	 clk   => CLOCK_12M_intern,
+    set_n => rst_intern,
+    shift  => shift_R_intern,
+	 enable => bclk_intern,
+    ser_i   => ADCDAT_s_i,
+    par_o   => ADCDAT_pr_o
+	
+	);
 
+	b2v_inst_Shift_L_i : shiftreg_s2p
+	port map (
+	 clk   => CLOCK_12M_intern,
+    set_n => rst_intern,
+    shift  => shift_L_intern,
+    enable => bclk_intern,
+	 ser_i   => ADCDAT_s_i,
+    par_o   => ADCDAT_pl_o
+	
+	);
 
-  -- ADCDAT_s_i
-  -- ADCDAT_pl_o
-  -- ADCDAT_pr_o
+  
+ 
   DACDAT_pl_i_intern <= DACDAT_pl_i;
   rst_intern <= RST_N_12M;
   CLOCK_12M_intern <= CLOCK_12M;

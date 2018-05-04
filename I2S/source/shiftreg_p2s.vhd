@@ -32,13 +32,13 @@ BEGIN
   --------------------------------------------------
   -- PROCESS FOR COMBINATIONAL LOGIC
   --------------------------------------------------
-  shift_comb: PROCESS(ALL)
+  shift_comb: PROCESS(par_i,shift,enable,shiftreg,load_i)
   BEGIN 
   IF (load_i = '1') THEN        -- load parallel data 
     next_shiftreg <= par_i; 
   
-  ELSIF (shift = '1') AND (enable = '1') THEN      -- shift; shift direction towards LSB
-    next_shiftreg <= '1' & shiftreg(15 downto 1); 
+  ELSIF (shift = '1') AND (enable = '1') THEN      -- shift; shift direction towards MSB
+    next_shiftreg <=  shiftreg(14 downto 0) & '1'; 
 
   ELSE
     next_shiftreg <= shiftreg;
@@ -52,7 +52,7 @@ BEGIN
   shift_dffs : PROCESS(clk, set_n)
   BEGIN 
     IF set_n = '0' THEN
-    shiftreg <= (others=>'1');
+    shiftreg <= (others=>'0');
     ELSIF rising_edge(clk) THEN
     shiftreg <= next_shiftreg ;
     END IF;
@@ -62,7 +62,7 @@ BEGIN
   -- CONCURRENT ASSIGNMENTS
   --------------------------------------------------
   -- take LSB of shiftreg as serial output
-  ser_o <= shiftreg(0);
+  ser_o <= shiftreg(15);
   
 END rtl;
 

@@ -25,15 +25,19 @@ COMPONENT i2s
 	(
     	CLOCK_12M  		: in  	std_logic;
     	RST_N_12M		: in    std_logic;
-	    DACDAT_pl_i 	: in  	std_logic_vector(15 downto 0);
+	   
+		DACDAT_pl_i 	: in  	std_logic_vector(15 downto 0);
 		DACDAT_pr_i		: in 	std_logic_vector(15 downto 0);
-		--ADCDAT_s_i		: in 	std_logic;
-		--ADCDAT_pl_o 	: out  	std_logic_vector(15 downto 0);
-		--ADCDAT_pr_o		: out 	std_logic_vector(15 downto 0);
+		
+		ADCDAT_s_i		: in 	std_logic;
 		DACDAT_s_o 		: out  	std_logic;
+		
+		ADCDAT_pl_o 	: out  	std_logic_vector(15 downto 0);
+		ADCDAT_pr_o		: out 	std_logic_vector(15 downto 0);
+		
 		BCLK_o			: out 	std_logic;
 		WS_o			: out 	std_logic;
-	    STROBE  		: out   STD_LOGIC
+	   STROBE  		: out   STD_LOGIC
 	);
 END COMPONENT;
 
@@ -44,17 +48,16 @@ END COMPONENT;
 	
 	SIGNAL tb_clock_12 	: std_logic;
 	SIGNAL tb_rst_n_12 	: std_logic;
-	SIGNAL tb_pl_i		: std_logic_vector(15 downto 0);
-	SIGNAL tb_pr_i		: std_logic_vector(15 downto 0);
+	SIGNAL tb_pl_io		: std_logic_vector(15 downto 0);
+	SIGNAL tb_pr_io		: std_logic_vector(15 downto 0);
 	SIGNAL tb_s_o   	: std_logic;
 	SIGNAL tb_s_i		: std_logic;
-	SIGNAL tb_pl_o		: std_logic_vector(15 downto 0);
-	SIGNAL tb_pr_o		: std_logic_vector(15 downto 0);
 	SIGNAL tb_bclk		: std_logic;
 	SIGNAL tb_enable 	: std_logic;
 	SIGNAL tb_ws 		: std_logic;
 	SIGNAL tb_strobe 	: std_logic;
-
+	
+	SIGNAL t_data		: std_logic_vector(15 downto 0);
 		
 	-- Constants
 	CONSTANT CLK_12M_HALFP 	: time := 40 ns;  		-- Half-Period of Clock 50MHz
@@ -64,21 +67,21 @@ END COMPONENT;
 	--SIGNAL tb_reg0_lo	: std_logic_vector(3 downto 0);	
 	
 BEGIN
-  -- Instantiations
+  -- Instantiations	
   DUT: i2s
   PORT MAP 
   (
 	CLOCK_12M  		=> tb_clock_12,
 	RST_N_12M		=> tb_rst_n_12,
-	DACDAT_pl_i 	=> tb_pl_i,
-	DACDAT_pr_i		=> tb_pr_i,
-	--ADCDAT_s_i		=> tb_s_i,
-	--ADCDAT_pl_o 	=> tb_pl_o,
-	--ADCDAT_pr_o		=> tb_pr_o,
+	DACDAT_pl_i 	=> tb_pl_io,
+	DACDAT_pr_i		=> tb_pr_io,
+	ADCDAT_s_i		=> tb_s_i,
+	ADCDAT_pl_o 	=> tb_pl_io,
+	ADCDAT_pr_o		=> tb_pr_io,
 	DACDAT_s_o 		=> tb_s_o,
 	BCLK_o			=> tb_bclk,
-	WS_o			=> tb_ws,
-	STROBE  		=> tb_strobe
+	WS_o				=> tb_ws,
+	STROBE  			=> tb_strobe
   )	;
 		
   -- Clock Generation Process	
@@ -98,16 +101,24 @@ BEGIN
 		-- STEP 0
 		report "Initialise: define constants and pulse reset on/off";
 		--tb_init_n 	<= '0';
-		tb_rst_n_12 <= '1';
-		----------------
-		wait for 5 * CLK_12M_HALFP; 
 		tb_rst_n_12 <= '0';
-		wait for 8 * CLK_12M_HALFP; 
+		tb_s_i <= '0';
+		----------------;
+		wait for 4 * CLK_12M_HALFP; 
 		tb_rst_n_12 <= '1';
-		wait for 2 * CLK_12M_HALFP; 
-		wait until rising_edge(tb_strobe);
-		tb_pl_i <= "1100010011101001";
-		tb_pr_i <= "1100010011101000";
+		-- wait for 2 * CLK_12M_HALFP; 
+		
+		t_data <= "1100010011101001";
+		wait until falling_edge(tb_ws);	
+		wait until falling_edge(tb_bclk);
+		wait until falling_edge(tb_bclk);
+		
+		
+		for i in 15 downto 0 loop
+		tb_s_i <= t_data(i);
+		wait until falling_edge(tb_bclk);	
+		end loop;
+
 		
 		wait for 50000*CLK_12M_HALFP;
 		

@@ -74,28 +74,28 @@ BEGIN
   -- PROCESS FOR I2S DECODER'S COMB LOGIC
   ---------------------------------------------------
 
-  i2s_decoder: PROCESS(count)
+  i2s_decoder: PROCESS(count, rst_n_12M)
   BEGIN
 
-    IF (count <= 63) THEN
+    IF (count <= 63) AND (rst_n_12M = '1') THEN
       WS <= '0';
     ELSE
       WS <= '1';
     END IF;
 
-    IF (count = 0) THEN
+    IF (count = 0) AND (rst_n_12M = '1') THEN
       strobe <= '1';
     ELSE
       strobe <= '0';
     END IF;
 
-    IF (count > 0) and (count < 17) THEN
+    IF (count > 0) and (count < 17) AND (rst_n_12M = '1') THEN
       shift_L <= '1';
     ELSE
       shift_L <= '0';
     END IF;
 
-    IF (count > 64) and (count < 81) THEN
+    IF (count > 64) and (count < 81) AND (rst_n_12M = '1') THEN
       shift_R <= '1';
     ELSE
       shift_R <= '0';
@@ -112,7 +112,7 @@ BEGIN
   flip_flops : PROCESS(clk_12M, rst_n_12M)
   BEGIN 
     IF rst_n_12M = '0' THEN
-    count <= to_unsigned(0,7); 
+    count <= to_unsigned(127,7); 
     ELSIF rising_edge(clk_12M) THEN
     count <= next_count ;
     END IF;
