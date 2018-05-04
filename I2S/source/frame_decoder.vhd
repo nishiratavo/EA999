@@ -77,25 +77,25 @@ BEGIN
   i2s_decoder: PROCESS(count, rst_n_12M)
   BEGIN
 
-    IF (count <= 63) AND (rst_n_12M = '1') THEN
+    IF (count <= 63) THEN
       WS <= '0';
     ELSE
       WS <= '1';
     END IF;
 
-    IF (count = 0) AND (rst_n_12M = '1') THEN
+    IF (count = 0) THEN
       strobe <= '1';
     ELSE
       strobe <= '0';
     END IF;
 
-    IF (count > 0) and (count < 17) AND (rst_n_12M = '1') THEN
+    IF (count > 0) and (count < 17)THEN
       shift_L <= '1';
     ELSE
       shift_L <= '0';
     END IF;
 
-    IF (count > 64) and (count < 81) AND (rst_n_12M = '1') THEN
+    IF (count > 64) and (count < 81)THEN
       shift_R <= '1';
     ELSE
       shift_R <= '0';
