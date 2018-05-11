@@ -1,0 +1,17 @@
+
+State Machine - |audio_loop|audio_synth:b2v_inst2|i2c_master:b2v_inst3|fsm_state
+Name fsm_state.S_STOP fsm_state.S_WAIT_FOR_STOP fsm_state.S_ACK_BYTE fsm_state.S_SEND_BYTE fsm_state.S_WAIT_FOR_NEXT_BYTE fsm_state.S_START fsm_state.S_WAIT_FOR_START fsm_state.S_IDLE 
+fsm_state.S_IDLE 0 0 0 0 0 0 0 0 
+fsm_state.S_WAIT_FOR_START 0 0 0 0 0 0 1 1 
+fsm_state.S_START 0 0 0 0 0 1 0 1 
+fsm_state.S_WAIT_FOR_NEXT_BYTE 0 0 0 0 1 0 0 1 
+fsm_state.S_SEND_BYTE 0 0 0 1 0 0 0 1 
+fsm_state.S_ACK_BYTE 0 0 1 0 0 0 0 1 
+fsm_state.S_WAIT_FOR_STOP 0 1 0 0 0 0 0 1 
+fsm_state.S_STOP 1 0 0 0 0 0 0 1 
+
+State Machine - |audio_loop|audio_synth:b2v_inst2|i2c_ctrl:b2v_inst2|s_state
+Name s_state.s_send_wait s_state.s_send_data s_state.s_idle 
+s_state.s_idle 0 0 0 
+s_state.s_send_data 0 1 1 
+s_state.s_send_wait 1 0 1 
