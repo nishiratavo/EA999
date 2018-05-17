@@ -18,13 +18,8 @@ USE work.tone_gen_pkg.all;
 -------------------------------------------
 entity tone_decoder is
   PORT( 
-  note_on_in	: in std_logic_vector (N_MIDI_DATA-1 downto 0);
-  midi_note_in	: in std_logic_vector (N_MIDI_DATA-1 downto 0);
-  vecity_in		: in std_logic_vector (N_MIDI_DATA-1 downto 0);
-  
-  note_on_out	: out std_logic;
-  phi_incr_out : out std_logic_vector	(N_CUM-1 downto 0);
-  velocity_out	: out std_logic_vector 	(N_MIDI_DATA-1 downto 0)
+  midi_note_in	: in std_logic_vector (N_MIDI_DATA-1 downto 0); 
+  phi_incr_out : out std_logic_vector	(N_CUM-1 downto 0)
   );
 end tone_decoder;
 
@@ -42,13 +37,37 @@ BEGIN
   --------------------------------------------------
   -- PROCESS FOR COMBINATORIAL LOGIC
   --------------------------------------------------
-  comb_logic: PROCESS()
+  note_decoder: PROCESS(midi_note_in)
 	variable midi_note :	unsigned(N_MIDI_DATA-1 downto 0);
   BEGIN	
-	midi_note := unsigned(note_on_in);
+	midi_note := unsigned(midi_note_in);
 	
 	case midi_note is
-	
+		when 0 => 
+			phi_incr_out <= CM1_DO;
+		when 1 => 
+			phi_incr_out <= CM1S_DOS;
+		when 2 => 
+			phi_incr_out <= DM1_RE;
+		when 3 => 
+			phi_incr_out <= DM1S_RES;
+		when 4 => 
+			phi_incr_out <= EM1_MI;
+		when 5 => 
+			phi_incr_out <= FM1_FA;
+		when 6 => 
+			phi_incr_out <= FM1S_FAS;
+		when 7 => 
+			phi_incr_out <= GM1_SOL;
+		when 8 => 
+			phi_incr_out <= GM1S_SOLS;
+		when 9 => 
+			phi_incr_out <= AM1_LA;
+		when 10 => 
+			phi_incr_out <= AM1S_LAS;
+		when 11 => 
+			phi_incr_out <= BM1_SI;	
+			
 		when 12 => 
 			phi_incr_out <= C0_DO;
 		when 13 => 
@@ -73,8 +92,7 @@ BEGIN
 			phi_incr_out <= A0S_LAS;
 		when 23 => 
 			phi_incr_out <= B0S_SI;	
-	
-	
+			
 		when 24 => 
 			phi_incr_out <= C1_DO;
 		when 25 => 
@@ -99,7 +117,7 @@ BEGIN
 			phi_incr_out <= A1S_LAS;
 		when 35 => 
 			phi_incr_out <= B1S_SI;	
-	
+			
 		when 36 => 
 			phi_incr_out <= C2_DO;
 		when 37 => 
@@ -124,7 +142,7 @@ BEGIN
 			phi_incr_out <= A2S_LAS;
 		when 47 => 
 			phi_incr_out <= B2S_SI;		
-	
+			
 		when 48 => 
 			phi_incr_out <= C3_DO;
 		when 49 => 
@@ -149,7 +167,7 @@ BEGIN
 			phi_incr_out <= A3S_LAS;
 		when 59 => 
 			phi_incr_out <= B3S_SI;	
-	
+			
 		when 60 => 
 			phi_incr_out <= C4_DO;
 		when 61 => 
@@ -199,7 +217,7 @@ BEGIN
 			phi_incr_out <= A5S_LAS;
 		when 83 => 
 			phi_incr_out <= B5S_SI;
-
+			
 		when 84 => 
 			phi_incr_out <= C6_DO;
 		when 85 => 
@@ -248,25 +266,10 @@ BEGIN
 		when 106 => 
 			phi_incr_out <= A7S_LAS;
 		when 107 => 
-			phi_incr_out <= B7S_SI;	
+			phi_incr_out <= B7S_SI;
+		end case;
 			
-  END PROCESS comb_logic;   
-  
-  
-  
-  
-  --------------------------------------------------
-  -- PROCESS FOR REGISTERS
-  --------------------------------------------------
-  flip_flops : PROCESS(clk, reset_n)
-  BEGIN	
-  	IF reset_n = '0' THEN
-
-    ELSIF rising_edge(clk) THEN
-
-    END IF;
-  END PROCESS flip_flops;		
-  
+  END PROCESS note_decoder;   	
   
   --------------------------------------------------
   -- CONCURRENT ASSIGNMENTS
