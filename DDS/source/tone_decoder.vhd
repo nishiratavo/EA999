@@ -38,11 +38,13 @@ BEGIN
   -- PROCESS FOR COMBINATORIAL LOGIC
   --------------------------------------------------
   note_decoder: PROCESS(midi_note_in)
-	variable midi_note :	unsigned(N_MIDI_DATA-1 downto 0);
+	variable midi_note :	natural range 0 to 127;
   BEGIN	
-	midi_note := unsigned(midi_note_in);
+	midi_note := to_integer(unsigned(midi_note_in));
 	
 	case midi_note is
+	
+	
 		when 0 => 
 			phi_incr_out <= CM1_DO;
 		when 1 => 
@@ -91,7 +93,7 @@ BEGIN
 		when 22 => 
 			phi_incr_out <= A0S_LAS;
 		when 23 => 
-			phi_incr_out <= B0S_SI;	
+			phi_incr_out <= B0_SI;	
 			
 		when 24 => 
 			phi_incr_out <= C1_DO;
@@ -116,7 +118,7 @@ BEGIN
 		when 34 => 
 			phi_incr_out <= A1S_LAS;
 		when 35 => 
-			phi_incr_out <= B1S_SI;	
+			phi_incr_out <= B1_SI;	
 			
 		when 36 => 
 			phi_incr_out <= C2_DO;
@@ -141,7 +143,7 @@ BEGIN
 		when 46 => 
 			phi_incr_out <= A2S_LAS;
 		when 47 => 
-			phi_incr_out <= B2S_SI;		
+			phi_incr_out <= B2_SI;		
 			
 		when 48 => 
 			phi_incr_out <= C3_DO;
@@ -166,7 +168,7 @@ BEGIN
 		when 58 => 
 			phi_incr_out <= A3S_LAS;
 		when 59 => 
-			phi_incr_out <= B3S_SI;	
+			phi_incr_out <= B3_SI;	
 			
 		when 60 => 
 			phi_incr_out <= C4_DO;
@@ -191,7 +193,7 @@ BEGIN
 		when 70 => 
 			phi_incr_out <= A4S_LAS;
 		when 71 => 
-			phi_incr_out <= B4S_SI;
+			phi_incr_out <= B4_SI;
 			
 		when 72 => 
 			phi_incr_out <= C5_DO;
@@ -216,7 +218,7 @@ BEGIN
 		when 82 => 
 			phi_incr_out <= A5S_LAS;
 		when 83 => 
-			phi_incr_out <= B5S_SI;
+			phi_incr_out <= B5_SI;
 			
 		when 84 => 
 			phi_incr_out <= C6_DO;
@@ -241,7 +243,7 @@ BEGIN
 		when 94 => 
 			phi_incr_out <= A6S_LAS;
 		when 95 => 
-			phi_incr_out <= B6S_SI;	
+			phi_incr_out <= B6_SI;	
 			
 		when 96 => 
 			phi_incr_out <= C7_DO;
@@ -266,7 +268,51 @@ BEGIN
 		when 106 => 
 			phi_incr_out <= A7S_LAS;
 		when 107 => 
-			phi_incr_out <= B7S_SI;
+			phi_incr_out <= B7_SI;
+			
+			
+		when 108 => 
+			phi_incr_out <= C7_DO;
+		when 109 => 
+			phi_incr_out <= C7S_DOS;
+		when 110 => 
+			phi_incr_out <= D7_RE;
+		when 111 => 
+			phi_incr_out <= D7S_RES;
+		when 112 => 
+			phi_incr_out <= E7_MI;
+		when 113 => 
+			phi_incr_out <= F7_FA;
+		when 114 => 
+			phi_incr_out <= F7S_FAS;
+		when 115 => 
+			phi_incr_out <= G7_SOL;
+		when 116 => 
+			phi_incr_out <= G7S_SOLS;
+		when 117 => 
+			phi_incr_out <= A7_LA;
+		when 118 => 
+			phi_incr_out <= A7S_LAS;
+		when 119 => 
+			phi_incr_out <= B7_SI;
+			
+		when 120 => 
+			phi_incr_out <= C7_DO;
+		when 121 => 
+			phi_incr_out <= C7S_DOS;
+		when 122 => 
+			phi_incr_out <= D7_RE;
+		when 123 => 
+			phi_incr_out <= D7S_RES;
+		when 124 => 
+			phi_incr_out <= E7_MI;
+		when 125 => 
+			phi_incr_out <= F7_FA;
+		when 126 => 
+			phi_incr_out <= F7S_FAS;
+		when 127 => 
+			phi_incr_out <= G7_SOL;
+			
 		end case;
 			
   END PROCESS note_decoder;   	
