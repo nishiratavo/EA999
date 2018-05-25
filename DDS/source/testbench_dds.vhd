@@ -38,6 +38,7 @@ END COMPONENT;
 	-- Constants
 	CONSTANT CLK_12M_HALFP 	: time := 40 ns;  		-- Half-Period of Clock 12.5MHz
 	CONSTANT STROBE_CLK		: time := 21 us;
+	CONSTANT BCLK			: time := 0.16 us;
 	
 	-- Auxiliary Signals for internal probes
 	--SIGNAL data	: std_logic_vector(15 downto 0); -- to check DUT-internal signal
@@ -69,7 +70,7 @@ BEGIN
 	generate_strobe: PROCESS
 	BEGIN
 		tb_strobe <= '1';
-		wait for STROBE_CLK;	
+		wait for BCLK;	
 		tb_strobe <= '0';
 		wait for STROBE_CLK;
 	END PROCESS generate_strobe;
