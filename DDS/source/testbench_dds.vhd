@@ -1,5 +1,6 @@
 LIBRARY ieee;
 use ieee.std_logic_1164.all;
+USE work.tone_gen_pkg.all;
 
 -- Entity Declaration 
 ENTITY testbench_dds IS
@@ -8,16 +9,17 @@ END testbench_dds ;
 
 
 -- Architecture Declaration 
-ARCHITECTURE struct OF testbench_i2s IS
+ARCHITECTURE struct OF testbench_dds IS
 
 	-- Components Declaration
 COMPONENT DDS_top
 	PORT
 	(
-    clk,reset_n	: 	in	std_logic;		
+  clk,reset_n	: 	in	std_logic;		
 	MIDI_note	:	in 	std_logic_vector(N_MIDI_DATA-1 downto 0);
 	Note_ON		:	in 	std_logic;
 	tone_out	:	out	std_logic_vector(15 downto 0);
+	strobe   : in std_logic
 	);
 END COMPONENT;
 
@@ -26,6 +28,7 @@ END COMPONENT;
 		
 	-- Signals & Constants Declaration 
 	
+	SIGNAL tb_strobe	: std_logic;
 	SIGNAL tb_clock_12 	: std_logic;
 	SIGNAL tb_rst_n_12 	: std_logic;
 	SIGNAL tb_midi_note : std_logic_vector(N_MIDI_DATA-1 downto 0);
@@ -34,6 +37,7 @@ END COMPONENT;
 		
 	-- Constants
 	CONSTANT CLK_12M_HALFP 	: time := 40 ns;  		-- Half-Period of Clock 12.5MHz
+	CONSTANT STROBE_CLK		: time := 21 us;
 	
 	-- Auxiliary Signals for internal probes
 	--SIGNAL data	: std_logic_vector(15 downto 0); -- to check DUT-internal signal
@@ -48,7 +52,8 @@ BEGIN
 	reset_n	=> tb_rst_n_12,
 	MIDI_note => tb_midi_note,
 	Note_ON	=>	tb_note_on,
-	tone_out =>	tb_tone_out
+	tone_out =>	tb_tone_out,
+	strobe => tb_strobe
   )	;
 		
   -- Clock Generation Process	
@@ -60,6 +65,14 @@ BEGIN
 		wait for CLK_12M_HALFP;
 	END PROCESS generate_clock;
 	
+
+	generate_strobe: PROCESS
+	BEGIN
+		tb_strobe <= '1';
+		wait for STROBE_CLK;	
+		tb_strobe <= '0';
+		wait for STROBE_CLK;
+	END PROCESS generate_strobe;
 	
 	
   -- Stimuli Process
@@ -69,7 +82,7 @@ BEGIN
 		report "Initialise: define constants and pulse reset on/off";
 		--tb_init_n 	<= '0';
 		tb_rst_n_12 <= '0';
-		tb_s_i <= '0';
+--		tb_s_i <= '0';
 		----------------;
 		wait for 4 * CLK_12M_HALFP; 
 		tb_rst_n_12 <= '1';
@@ -81,6 +94,8 @@ BEGIN
 		
 		wait for 50000*CLK_12M_HALFP;
 		
+
+		tb_note_on <= '0';
 		--report "Start I2C TX of mode 000 Analog-Loop Basic";	
 		
 		--wait for 200_000 * CLK_12M_HALFP;
