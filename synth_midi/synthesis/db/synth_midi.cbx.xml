@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="synth_midi">
+		<CBX_INST_ENTRY INSTANCE_NAME="|synth_midi|midi_fm:synth|FM:fm_synth|fm_sel:b2v_inst3|lpm_mult:Mult0" CBX_FILE_NAME="mult_57t.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|synth_midi|midi_fm:synth|FM:fm_synth|fm_sel:b2v_inst3|lpm_mult:Mult1" CBX_FILE_NAME="mult_uvs.tdf"/>
+	</PROJECT>
+</LOG_ROOT>

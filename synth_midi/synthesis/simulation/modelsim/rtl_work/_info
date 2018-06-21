@@ -1,0 +1,722 @@
+m255
+K3
+13
+cModel Technology
+Z0 d/home/gustavo/Documents/EA999/synth_midi/synthesis/simulation/modelsim
+Eaudio_synth
+Z1 w1525972505
+Z2 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
+Z3 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
+Z4 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
+Z5 d/home/gustavo/Documents/EA999/synth_midi/synthesis/simulation/modelsim
+Z6 8/home/gustavo/Documents/EA999/synth_midi/source/source_i2c/audio_synth_top.vhd
+Z7 F/home/gustavo/Documents/EA999/synth_midi/source/source_i2c/audio_synth_top.vhd
+l0
+L25
+Vj91QQ^_fHNL4efiB89jQ11
+Z8 OV;C;10.1d;51
+33
+Z9 !s108 1529529554.134973
+Z10 !s90 -reportprogress|300|-2008|-work|work|/home/gustavo/Documents/EA999/synth_midi/source/source_i2c/audio_synth_top.vhd|
+Z11 !s107 /home/gustavo/Documents/EA999/synth_midi/source/source_i2c/audio_synth_top.vhd|
+Z12 o-2008 -work work -O0
+Z13 tExplicit 1
+!s100 @M[nZB:k3d_Wk]n1P]O600
+!i10b 1
+Abdf_type
+R2
+R3
+R4
+DEx4 work 11 audio_synth 0 22 j91QQ^_fHNL4efiB89jQ11
+l110
+L39
+V7P_5JPA@c:TPgC7lz;6D`0
+R8
+33
+R9
+R10
+R11
+R12
+R13
+!s100 g5a<omj5elokhlf0_YYb<0
+!i10b 1
+Ebclk_gen
+Z14 w1524838794
+R2
+R3
+R4
+R5
+Z15 8/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/bclk_gen.vhd
+Z16 F/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/bclk_gen.vhd
+l0
+L14
+VzcGG89kVT=ORJUPShMz>72
+R8
+33
+Z17 !s108 1529529554.299003
+Z18 !s90 -reportprogress|300|-2008|-work|work|/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/bclk_gen.vhd|
+Z19 !s107 /home/gustavo/Documents/EA999/synth_midi/source/source_i2s/bclk_gen.vhd|
+R12
+R13
+!s100 5KYSN0i?<0`2Leab@[d8S0
+!i10b 1
+Artl
+R2
+R3
+R4
+DEx4 work 8 bclk_gen 0 22 zcGG89kVT=ORJUPShMz>72
+l35
+L25
+V:E1<oVz`^8AHH12bC@k=H0
+R8
+33
+R17
+R18
+R19
+R12
+R13
+!s100 bE4<BoLzlH^9Ocz5lPXSO0
+!i10b 1
+Eclk_div
+Z20 w1524235377
+R2
+R3
+R4
+R5
+Z21 8/home/gustavo/Documents/EA999/synth_midi/source/source_i2c/clk_div.vhd
+Z22 F/home/gustavo/Documents/EA999/synth_midi/source/source_i2c/clk_div.vhd
+l0
+L14
+VmE;6jND`TkKA_71CI0jR;0
+R8
+33
+Z23 !s108 1529529554.179210
+Z24 !s90 -reportprogress|300|-2008|-work|work|/home/gustavo/Documents/EA999/synth_midi/source/source_i2c/clk_div.vhd|
+Z25 !s107 /home/gustavo/Documents/EA999/synth_midi/source/source_i2c/clk_div.vhd|
+R12
+R13
+!s100 >RYPUZ^HjfV1ZXA8N8Gi=1
+!i10b 1
+Artl
+R2
+R3
+R4
+DEx4 work 7 clk_div 0 22 mE;6jND`TkKA_71CI0jR;0
+l39
+L26
+VR7zSEmzU=`R]M^MA9FG=D1
+R8
+33
+R23
+R24
+R25
+R12
+R13
+!s100 LRHU_bf77gd>]D^iXJCQb0
+!i10b 1
+Edacdat_o_mux
+Z26 w1524838758
+R2
+R3
+R4
+R5
+Z27 8/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/DACDAT_o_MUX.vhd
+Z28 F/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/DACDAT_o_MUX.vhd
+l0
+L14
+Vo6`fe1T`Z;0FzS7i2mNoW0
+R8
+33
+Z29 !s108 1529529554.338079
+Z30 !s90 -reportprogress|300|-2008|-work|work|/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/DACDAT_o_MUX.vhd|
+Z31 !s107 /home/gustavo/Documents/EA999/synth_midi/source/source_i2s/DACDAT_o_MUX.vhd|
+R12
+R13
+!s100 f7]TIeDR4b0;XmWCMkeRF3
+!i10b 1
+Artl
+R2
+R3
+R4
+DEx4 work 12 dacdat_o_mux 0 22 o6`fe1T`Z;0FzS7i2mNoW0
+l32
+L26
+VdikinafFWR7K@hSGh4N4U2
+R8
+33
+R29
+R30
+R31
+R12
+R13
+!s100 5_0HG]e8zWkVf:Y[[Q`RP2
+!i10b 1
+Edds
+Z32 w1527879656
+Z33 DPx4 work 12 tone_gen_pkg 0 22 FYOP4P>enc[C^Z[hlb9Dd2
+R2
+R3
+R4
+R5
+Z34 8/home/gustavo/Documents/EA999/synth_midi/source/source_fm/DDS.vhd
+Z35 F/home/gustavo/Documents/EA999/synth_midi/source/source_fm/DDS.vhd
+l0
+L26
+V7H_aoj2XV1I1`<A0G4;6D0
+!s100 ?H<j59E:`8:KnZ8K2zG]j3
+R8
+33
+!i10b 1
+Z36 !s108 1529529554.837496
+Z37 !s90 -reportprogress|300|-2008|-work|work|/home/gustavo/Documents/EA999/synth_midi/source/source_fm/DDS.vhd|
+Z38 !s107 /home/gustavo/Documents/EA999/synth_midi/source/source_fm/DDS.vhd|
+R12
+R13
+Abdf
+R33
+R2
+R3
+R4
+DEx4 work 3 dds 0 22 7H_aoj2XV1I1`<A0G4;6D0
+l61
+L36
+VYR9@R[NNgVCgHHXV=EjCj3
+!s100 MGC<^FVPWkHegXII9a@ob2
+R8
+33
+!i10b 1
+R36
+R37
+R38
+R12
+R13
+Pfm_pkg
+R2
+R3
+R4
+w1528984916
+R5
+8/home/gustavo/Documents/EA999/synth_midi/source/source_fm/fm_pkg.vhd
+F/home/gustavo/Documents/EA999/synth_midi/source/source_fm/fm_pkg.vhd
+l0
+L16
+VU[Cc1lD_T<CLaD[4kCKmh2
+R8
+33
+R12
+R13
+!s100 @^LO^33NdT`eW1[D^:C3c0
+!i10b 1
+!s108 1529529553.937751
+!s90 -reportprogress|300|-2008|-work|work|/home/gustavo/Documents/EA999/synth_midi/source/source_fm/fm_pkg.vhd|
+!s107 /home/gustavo/Documents/EA999/synth_midi/source/source_fm/fm_pkg.vhd|
+Eframe_decoder
+Z39 w1525446456
+R2
+R3
+R4
+R5
+Z40 8/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/frame_decoder.vhd
+Z41 F/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/frame_decoder.vhd
+l0
+L25
+VOHz6TMCQJ>8GGATYDC46Z0
+R8
+33
+Z42 !s108 1529529554.376972
+Z43 !s90 -reportprogress|300|-2008|-work|work|/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/frame_decoder.vhd|
+Z44 !s107 /home/gustavo/Documents/EA999/synth_midi/source/source_i2s/frame_decoder.vhd|
+R12
+R13
+!s100 M0CZ;m[1nOW>ZT::ZaCJ73
+!i10b 1
+Artl
+R2
+R3
+R4
+DEx4 work 13 frame_decoder 0 22 OHz6TMCQJ>8GGATYDC46Z0
+l49
+L38
+VUAdGIGL7H??`NcB@a`UBM1
+R8
+33
+R42
+R43
+R44
+R12
+R13
+!s100 l:`U]N?Vg?j?NfbeZJFbE1
+!i10b 1
+Efsm_midi
+Z45 w1529071466
+R2
+R3
+R4
+R5
+Z46 8/home/gustavo/Documents/EA999/synth_midi/source/uart_source/fsm_MIDI.vhd
+Z47 F/home/gustavo/Documents/EA999/synth_midi/source/uart_source/fsm_MIDI.vhd
+l0
+L12
+V>5BkIgz?RSl]7oLZ35;9]1
+R8
+33
+Z48 !s108 1529529554.639186
+Z49 !s90 -reportprogress|300|-2008|-work|work|/home/gustavo/Documents/EA999/synth_midi/source/uart_source/fsm_MIDI.vhd|
+Z50 !s107 /home/gustavo/Documents/EA999/synth_midi/source/uart_source/fsm_MIDI.vhd|
+R12
+R13
+!s100 1N[:k@@@Vm22lLX[7Y09o1
+!i10b 1
+Artl
+R2
+R3
+R4
+DEx4 work 8 fsm_midi 0 22 >5BkIgz?RSl]7oLZ35;9]1
+l27
+L22
+VR]1e?T3P=bm3a>:IgGRUN3
+R8
+33
+R48
+R49
+R50
+R12
+R13
+!s100 :fn6<zJ93n>6ilF=RHXU52
+!i10b 1
+Ei2c_master
+R20
+R2
+R3
+R4
+R5
+Z51 8/home/gustavo/Documents/EA999/synth_midi/source/source_i2c/i2c_master.vhd
+Z52 F/home/gustavo/Documents/EA999/synth_midi/source/source_i2c/i2c_master.vhd
+l0
+L22
+VQ0UB;Tk1FGYcY_OM=S3:F2
+R8
+33
+Z53 !s108 1529529554.218251
+Z54 !s90 -reportprogress|300|-2008|-work|work|/home/gustavo/Documents/EA999/synth_midi/source/source_i2c/i2c_master.vhd|
+Z55 !s107 /home/gustavo/Documents/EA999/synth_midi/source/source_i2c/i2c_master.vhd|
+R12
+R13
+!s100 :oJoT1fi4B0hNcYU2CJNZ1
+!i10b 1
+Artl
+R2
+R3
+R4
+DEx4 work 10 i2c_master 0 22 Q0UB;Tk1FGYcY_OM=S3:F2
+l97
+L40
+V`9iRFUG[@REcbeUfEc7b71
+R8
+33
+R53
+R54
+R55
+R12
+R13
+!s100 k;8eRSYfm<eJlocPCnFOD3
+!i10b 1
+Ei2s
+Z56 w1525968291
+R3
+R4
+R5
+Z57 8/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/i2s.vhd
+Z58 F/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/i2s.vhd
+l0
+L33
+VXVfM@SkK9JnEbb0ALI17m2
+R8
+33
+Z59 !s108 1529529554.416271
+Z60 !s90 -reportprogress|300|-2008|-work|work|/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/i2s.vhd|
+Z61 !s107 /home/gustavo/Documents/EA999/synth_midi/source/source_i2s/i2s.vhd|
+R12
+R13
+!s100 6ddiCP@HUk]zYK9gQ:0H33
+!i10b 1
+Abdf
+R3
+R4
+DEx4 work 3 i2s 0 22 XVfM@SkK9JnEbb0ALI17m2
+l120
+L50
+VcNJoJ=b;IB1<Ra:FQW4bg2
+R8
+33
+R59
+R60
+R61
+R12
+R13
+!s100 ogGVPYgQ0jWJGN4]?YLbj0
+!i10b 1
+Emidi_controller
+Z62 w1528983215
+R2
+R3
+R4
+R5
+Z63 8/home/gustavo/Documents/EA999/synth_midi/source/source_midi/midi_controller.vhd
+Z64 F/home/gustavo/Documents/EA999/synth_midi/source/source_midi/midi_controller.vhd
+l0
+L5
+VIo:k=Y35d@2FFk7l2c3E93
+R8
+33
+Z65 !s108 1529529554.513411
+Z66 !s90 -reportprogress|300|-2008|-work|work|/home/gustavo/Documents/EA999/synth_midi/source/source_midi/midi_controller.vhd|
+Z67 !s107 /home/gustavo/Documents/EA999/synth_midi/source/source_midi/midi_controller.vhd|
+R12
+R13
+!s100 ICam:FZDe<AM47R^[FaW43
+!i10b 1
+Abdf
+R2
+R3
+R4
+DEx4 work 15 midi_controller 0 22 Io:k=Y35d@2FFk7l2c3E93
+l63
+L17
+V@jjo?]>`>W2[]YBFA8Zf91
+R8
+33
+R65
+R66
+R67
+R12
+R13
+!s100 ePIdZJjXWQao8D3:aUV[=0
+!i10b 1
+Emidi_decoder
+Z68 w1528981684
+R2
+R3
+R4
+R5
+Z69 8/home/gustavo/Documents/EA999/synth_midi/source/source_midi/midi_decoder.vhd
+Z70 F/home/gustavo/Documents/EA999/synth_midi/source/source_midi/midi_decoder.vhd
+l0
+L8
+VhUONcS4[hif3?Y]CHV8?l1
+R8
+33
+Z71 !s108 1529529554.554012
+Z72 !s90 -reportprogress|300|-2008|-work|work|/home/gustavo/Documents/EA999/synth_midi/source/source_midi/midi_decoder.vhd|
+Z73 !s107 /home/gustavo/Documents/EA999/synth_midi/source/source_midi/midi_decoder.vhd|
+R12
+R13
+!s100 hRKf]z?A139em4CO^;`BC1
+!i10b 1
+Artl
+R2
+R3
+R4
+DEx4 work 12 midi_decoder 0 22 hUONcS4[hif3?Y]CHV8?l1
+l29
+L24
+VIQV0MKKIXcnh=CQ;gQ7;W3
+R8
+33
+R71
+R72
+R73
+R12
+R13
+!s100 :M:ldRE?Im7ZN4LV>bCmk0
+!i10b 1
+Emidi_receiver
+Z74 w1529067178
+R2
+R3
+R4
+R5
+Z75 8/home/gustavo/Documents/EA999/synth_midi/source/source_midi/midi_receiver.vhd
+Z76 F/home/gustavo/Documents/EA999/synth_midi/source/source_midi/midi_receiver.vhd
+l0
+L8
+V<FkXoHFT`4oQ^nbG44KGN2
+R8
+33
+Z77 !s108 1529529554.593472
+Z78 !s90 -reportprogress|300|-2008|-work|work|/home/gustavo/Documents/EA999/synth_midi/source/source_midi/midi_receiver.vhd|
+Z79 !s107 /home/gustavo/Documents/EA999/synth_midi/source/source_midi/midi_receiver.vhd|
+R12
+R13
+!s100 XLWiLnjSIW2HU;L4>abDK0
+!i10b 1
+Artl
+R2
+R3
+R4
+DEx4 work 13 midi_receiver 0 22 <FkXoHFT`4oQ^nbG44KGN2
+l34
+L21
+VF2GRnLf<8dUBP;>31CZdo3
+R8
+33
+R77
+R78
+R79
+R12
+R13
+!s100 mTlc>B]R^[:7HAgbL=@L@3
+!i10b 1
+Preg_table_pkg
+R3
+R4
+R20
+R5
+8/home/gustavo/Documents/EA999/synth_midi/source/source_i2c/reg_table_pkg.vhd
+F/home/gustavo/Documents/EA999/synth_midi/source/source_i2c/reg_table_pkg.vhd
+l0
+L26
+VKT7[iATGZ^A`oEf1Uk5aR2
+R8
+33
+R12
+R13
+!s100 4=imPkiiR11[M`h?j@kM52
+!i10b 1
+!s108 1529529554.266324
+!s90 -reportprogress|300|-2008|-work|work|/home/gustavo/Documents/EA999/synth_midi/source/source_i2c/reg_table_pkg.vhd|
+!s107 /home/gustavo/Documents/EA999/synth_midi/source/source_i2c/reg_table_pkg.vhd|
+Erx_reg
+Z80 w1528833400
+R2
+R3
+R4
+R5
+Z81 8/home/gustavo/Documents/EA999/synth_midi/source/uart_source/Rx_reg.vhd
+Z82 F/home/gustavo/Documents/EA999/synth_midi/source/uart_source/Rx_reg.vhd
+l0
+L16
+Vi3>5g<<n;feI0`9jMW7j63
+R8
+33
+Z83 !s108 1529529554.684771
+Z84 !s90 -reportprogress|300|-2008|-work|work|/home/gustavo/Documents/EA999/synth_midi/source/uart_source/Rx_reg.vhd|
+Z85 !s107 /home/gustavo/Documents/EA999/synth_midi/source/uart_source/Rx_reg.vhd|
+R12
+R13
+!s100 7]<8XakBDT=c>M1RSaK`70
+!i10b 1
+Artl
+R2
+R3
+R4
+DEx4 work 6 rx_reg 0 22 i3>5g<<n;feI0`9jMW7j63
+l32
+L25
+V@MImG<SeY;VbAn9XNk^f;0
+R8
+33
+R83
+R84
+R85
+R12
+R13
+!s100 HX;TBHbE[f>I>gm`7PEKf2
+!i10b 1
+Eshiftreg_p2s
+Z86 w1525445652
+R3
+R4
+R5
+Z87 8/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/shiftreg_p2s.vhd
+Z88 F/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/shiftreg_p2s.vhd
+l0
+L15
+V1<z>=2oS:j<n@00<NBf?51
+R8
+33
+Z89 !s108 1529529554.449092
+Z90 !s90 -reportprogress|300|-2008|-work|work|/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/shiftreg_p2s.vhd|
+Z91 !s107 /home/gustavo/Documents/EA999/synth_midi/source/source_i2s/shiftreg_p2s.vhd|
+R12
+R13
+!s100 IlIbU9db20b9iZFz9SJ^h0
+!i10b 1
+Artl
+R3
+R4
+DEx4 work 12 shiftreg_p2s 0 22 1<z>=2oS:j<n@00<NBf?51
+l30
+L25
+V>V4PKbO<R9^7V`?H<M7jo2
+R8
+33
+R89
+R90
+R91
+R12
+R13
+!s100 6B5Gb7:]^W:lHQ`m>Xm^30
+!i10b 1
+Eshiftreg_s2p
+R86
+R3
+R4
+R5
+Z92 8/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/shiftreg_s2p.vhd
+Z93 F/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/shiftreg_s2p.vhd
+l0
+L15
+V3GZR5DB10<:7149gh?e543
+R8
+33
+Z94 !s108 1529529554.482626
+Z95 !s90 -reportprogress|300|-2008|-work|work|/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/shiftreg_s2p.vhd|
+Z96 !s107 /home/gustavo/Documents/EA999/synth_midi/source/source_i2s/shiftreg_s2p.vhd|
+R12
+R13
+!s100 ?T?6Y<BJ8o<6LY?mjDS5g3
+!i10b 1
+Artl
+R3
+R4
+DEx4 work 12 shiftreg_s2p 0 22 3GZR5DB10<:7149gh?e543
+l29
+L24
+VI?@BT^kAPc6?z5JRJ@k373
+R8
+33
+R94
+R95
+R96
+R12
+R13
+!s100 e_<1YAQ5K]H@A2L@<ie@e1
+!i10b 1
+Esync_n_edgedetector
+Z97 w1523009892
+R3
+R4
+R5
+Z98 8/home/gustavo/Documents/EA999/synth_midi/source/uart_source/sync_n_edgeDetector.vhd
+Z99 F/home/gustavo/Documents/EA999/synth_midi/source/uart_source/sync_n_edgeDetector.vhd
+l0
+L14
+VHBn_gR3CPRd9n?BDZ>;SW1
+R8
+33
+Z100 !s108 1529529554.802605
+Z101 !s90 -reportprogress|300|-2008|-work|work|/home/gustavo/Documents/EA999/synth_midi/source/uart_source/sync_n_edgeDetector.vhd|
+Z102 !s107 /home/gustavo/Documents/EA999/synth_midi/source/uart_source/sync_n_edgeDetector.vhd|
+R12
+R13
+!s100 3d@zZIV]hX:`H1e>USM`02
+!i10b 1
+Artl
+R3
+R4
+DEx4 work 19 sync_n_edgedetector 0 22 HBn_gR3CPRd9n?BDZ>;SW1
+l29
+L25
+VSLVlngiCJEPO6Xa<4bF1i0
+R8
+33
+R100
+R101
+R102
+R12
+R13
+!s100 jR8XZXXQPW<o7NiDZld1B1
+!i10b 1
+Etick_generator
+Z103 w1529070404
+R2
+R3
+R4
+R5
+Z104 8/home/gustavo/Documents/EA999/synth_midi/source/uart_source/tick_generator.vhd
+Z105 F/home/gustavo/Documents/EA999/synth_midi/source/uart_source/tick_generator.vhd
+l0
+L14
+VGJn:EONVV9@[okkiBgTRn2
+R8
+33
+Z106 !s108 1529529554.728202
+Z107 !s90 -reportprogress|300|-2008|-work|work|/home/gustavo/Documents/EA999/synth_midi/source/uart_source/tick_generator.vhd|
+Z108 !s107 /home/gustavo/Documents/EA999/synth_midi/source/uart_source/tick_generator.vhd|
+R12
+R13
+!s100 VR6g;gSc?VUW3GCLH[ajB0
+!i10b 1
+Artl
+R2
+R3
+R4
+DEx4 work 14 tick_generator 0 22 GJn:EONVV9@[okkiBgTRn2
+l38
+L26
+VoW6?:Eh;RcUjRUhhXP1?R1
+R8
+33
+R106
+R107
+R108
+R12
+R13
+!s100 Tc7@ZoT>f`A03Yz5o3:mG2
+!i10b 1
+Ptone_gen_pkg
+DBx4 ieee 11 numeric_std 4 body 22 gP2UfWOPNP`1@`gJEG>6G1
+R3
+R4
+w1526643473
+R5
+8/home/gustavo/Documents/EA999/synth_midi/source/source_fm/tone_gen_pkg.vhd
+F/home/gustavo/Documents/EA999/synth_midi/source/source_fm/tone_gen_pkg.vhd
+l0
+L26
+VFYOP4P>enc[C^Z[hlb9Dd2
+R8
+33
+R12
+R13
+!s100 kQKC:GJT[zEBY86dkkSIa0
+!i10b 1
+!s108 1529529553.999110
+!s90 -reportprogress|300|-2008|-work|work|/home/gustavo/Documents/EA999/synth_midi/source/source_fm/tone_gen_pkg.vhd|
+!s107 /home/gustavo/Documents/EA999/synth_midi/source/source_fm/tone_gen_pkg.vhd|
+Euart
+Z109 w1529071569
+R3
+R4
+R5
+Z110 8/home/gustavo/Documents/EA999/synth_midi/source/uart_source/uart.vhd
+Z111 F/home/gustavo/Documents/EA999/synth_midi/source/uart_source/uart.vhd
+l0
+L24
+VzV6e82ho1Dh8dG^hF:o5Q2
+R8
+33
+Z112 !s108 1529529554.768079
+Z113 !s90 -reportprogress|300|-2008|-work|work|/home/gustavo/Documents/EA999/synth_midi/source/uart_source/uart.vhd|
+Z114 !s107 /home/gustavo/Documents/EA999/synth_midi/source/uart_source/uart.vhd|
+R12
+R13
+!s100 gMQmVKL@g8Eldc>d4b5AQ2
+!i10b 1
+Abdf
+R3
+R4
+DEx4 work 4 uart 0 22 zV6e82ho1Dh8dG^hF:o5Q2
+l83
+L35
+V<;KVga`gZbmcUhU:JXKmR2
+R8
+33
+R112
+R113
+R114
+R12
+R13
+!s100 KEfTS:_dCn<h5kQzY>@1;1
+!i10b 1

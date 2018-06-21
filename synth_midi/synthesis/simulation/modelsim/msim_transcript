@@ -1,0 +1,171 @@
+# do synth_midi_run_msim_rtl_vhdl.do 
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Copying /home/gustavo/altera/13.0sp1/modelsim_ase/linuxaloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# ** Warning: Copied /home/gustavo/altera/13.0sp1/modelsim_ase/linuxaloem/../modelsim.ini to modelsim.ini.
+#          Updated modelsim.ini.
+# 
+# vcom -2008 -work work {/home/gustavo/Documents/EA999/synth_midi/source/source_fm/fm_pkg.vhd}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling package fm_pkg
+# vcom -2008 -work work {/home/gustavo/Documents/EA999/synth_midi/source/source_fm/tone_gen_pkg.vhd}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling package tone_gen_pkg
+# vcom -2008 -work work {/home/gustavo/Documents/EA999/synth_midi/source/source_i2c/audio_synth_top.vhd}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity audio_synth
+# -- Compiling architecture bdf_type of audio_synth
+# vcom -2008 -work work {/home/gustavo/Documents/EA999/synth_midi/source/source_i2c/clk_div.vhd}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity clk_div
+# -- Compiling architecture rtl of clk_div
+# vcom -2008 -work work {/home/gustavo/Documents/EA999/synth_midi/source/source_i2c/i2c_master.vhd}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity i2c_master
+# -- Compiling architecture rtl of i2c_master
+# vcom -2008 -work work {/home/gustavo/Documents/EA999/synth_midi/source/source_i2c/reg_table_pkg.vhd}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling package reg_table_pkg
+# vcom -2008 -work work {/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/bclk_gen.vhd}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity bclk_gen
+# -- Compiling architecture rtl of bclk_gen
+# vcom -2008 -work work {/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/DACDAT_o_MUX.vhd}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity DACDAT_o_MUX
+# -- Compiling architecture rtl of DACDAT_o_MUX
+# vcom -2008 -work work {/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/frame_decoder.vhd}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity frame_decoder
+# -- Compiling architecture rtl of frame_decoder
+# vcom -2008 -work work {/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/i2s.vhd}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity i2s
+# -- Compiling architecture bdf of i2s
+# vcom -2008 -work work {/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/shiftreg_p2s.vhd}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity shiftreg_p2s
+# -- Compiling architecture rtl of shiftreg_p2s
+# vcom -2008 -work work {/home/gustavo/Documents/EA999/synth_midi/source/source_i2s/shiftreg_s2p.vhd}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity shiftreg_s2p
+# -- Compiling architecture rtl of shiftreg_s2p
+# vcom -2008 -work work {/home/gustavo/Documents/EA999/synth_midi/source/source_midi/midi_controller.vhd}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity midi_controller
+# -- Compiling architecture bdf of midi_controller
+# vcom -2008 -work work {/home/gustavo/Documents/EA999/synth_midi/source/source_midi/midi_decoder.vhd}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity midi_decoder
+# -- Compiling architecture rtl of midi_decoder
+# vcom -2008 -work work {/home/gustavo/Documents/EA999/synth_midi/source/source_midi/midi_receiver.vhd}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity midi_receiver
+# -- Compiling architecture rtl of midi_receiver
+# vcom -2008 -work work {/home/gustavo/Documents/EA999/synth_midi/source/uart_source/fsm_MIDI.vhd}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity fsm_midi
+# -- Compiling architecture rtl of fsm_midi
+# vcom -2008 -work work {/home/gustavo/Documents/EA999/synth_midi/source/uart_source/Rx_reg.vhd}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity rx_reg
+# -- Compiling architecture rtl of rx_reg
+# vcom -2008 -work work {/home/gustavo/Documents/EA999/synth_midi/source/uart_source/tick_generator.vhd}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity tick_generator
+# -- Compiling architecture rtl of tick_generator
+# vcom -2008 -work work {/home/gustavo/Documents/EA999/synth_midi/source/uart_source/uart.vhd}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity uart
+# -- Compiling architecture bdf of uart
+# vcom -2008 -work work {/home/gustavo/Documents/EA999/synth_midi/source/uart_source/sync_n_edgeDetector.vhd}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity sync_n_edgeDetector
+# -- Compiling architecture rtl of sync_n_edgeDetector
+# vcom -2008 -work work {/home/gustavo/Documents/EA999/synth_midi/source/source_fm/DDS.vhd}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package tone_gen_pkg
+# -- Compiling entity DDS
+# -- Compiling architecture bdf of DDS

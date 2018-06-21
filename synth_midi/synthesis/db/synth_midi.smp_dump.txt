@@ -1,0 +1,37 @@
+
+State Machine - |synth_midi|uart:uart_receiver|fsm_midi:b2v_inst4|s_state
+Name s_state.s_end s_state.s_wait s_state.s_data7 s_state.s_data6 s_state.s_data5 s_state.s_data4 s_state.s_data3 s_state.s_data2 s_state.s_data1 s_state.s_data0 s_state.s_null 
+s_state.s_null 0 0 0 0 0 0 0 0 0 0 0 
+s_state.s_data0 0 0 0 0 0 0 0 0 0 1 1 
+s_state.s_data1 0 0 0 0 0 0 0 0 1 0 1 
+s_state.s_data2 0 0 0 0 0 0 0 1 0 0 1 
+s_state.s_data3 0 0 0 0 0 0 1 0 0 0 1 
+s_state.s_data4 0 0 0 0 0 1 0 0 0 0 1 
+s_state.s_data5 0 0 0 0 1 0 0 0 0 0 1 
+s_state.s_data6 0 0 0 1 0 0 0 0 0 0 1 
+s_state.s_data7 0 0 1 0 0 0 0 0 0 0 1 
+s_state.s_wait 0 1 0 0 0 0 0 0 0 0 1 
+s_state.s_end 1 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |synth_midi|midi_fm:synth|midi_controller:midi|midi_receiver:receiver|s_state
+Name s_state.s_wait_data2 s_state.s_wait_data1 s_state.s_wait_status 
+s_state.s_wait_status 0 0 0 
+s_state.s_wait_data1 0 1 1 
+s_state.s_wait_data2 1 0 1 
+
+State Machine - |synth_midi|audio_synth:b2v_inst2|i2c_master:b2v_inst3|fsm_state
+Name fsm_state.S_STOP fsm_state.S_WAIT_FOR_STOP fsm_state.S_ACK_BYTE fsm_state.S_SEND_BYTE fsm_state.S_WAIT_FOR_NEXT_BYTE fsm_state.S_START fsm_state.S_WAIT_FOR_START fsm_state.S_IDLE 
+fsm_state.S_IDLE 0 0 0 0 0 0 0 0 
+fsm_state.S_WAIT_FOR_START 0 0 0 0 0 0 1 1 
+fsm_state.S_START 0 0 0 0 0 1 0 1 
+fsm_state.S_WAIT_FOR_NEXT_BYTE 0 0 0 0 1 0 0 1 
+fsm_state.S_SEND_BYTE 0 0 0 1 0 0 0 1 
+fsm_state.S_ACK_BYTE 0 0 1 0 0 0 0 1 
+fsm_state.S_WAIT_FOR_STOP 0 1 0 0 0 0 0 1 
+fsm_state.S_STOP 1 0 0 0 0 0 0 1 
+
+State Machine - |synth_midi|audio_synth:b2v_inst2|i2c_ctrl:b2v_inst2|s_state
+Name s_state.s_send_wait s_state.s_send_data s_state.s_idle 
+s_state.s_idle 0 0 0 
+s_state.s_send_data 0 1 1 
+s_state.s_send_wait 1 0 1 
